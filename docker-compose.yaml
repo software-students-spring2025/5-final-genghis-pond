@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  web_app:
+    build: ./web_app
+    ports:
+      - "5002:5002"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/flaskdb
+      - SECRET_KEY=supersecretkey
+      - FLASK_ENV=development
+    depends_on:
+      - mongodb
+  mapi:
+    build: ./mapi
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/flaskdb
+      - SECRET_KEY=supersecretkey
+      - FLASK_ENV=development
+    ports:
+      - "5001:5001"
