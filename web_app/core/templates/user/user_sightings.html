@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.username }}'s Sightings</title>
+</head>
+<body>
+
+<h2>{{ user.username }}'s Wildlife Sightings</h2>
+
+{% if sightings.items %}
+    <ul>
+        {% for sighting in sightings.items %}
+            <li>
+                <a href="{{ url_for('sightings.view_sighting', sighting_id=sighting.id) }}">
+                    {{ sighting.species }} — {{ sighting.location_name }} ({{ sighting.date_posted.strftime('%Y-%m-%d') }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>This user hasn’t reported any wildlife sightings yet.</p>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sightings Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Wildlife Sightings Map</h2>
+<div id="map"></div>
+<p><a href="{{ url_for('main.home') }}">← Back to Home</a></p>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([20.0, 0.0], 2);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const geoData = {{ sightings_json | tojson }};
+
+  const sightingsLayer = L.geoJSON(geoData, {
+    onEachFeature: function (feature, layer) {
+      const props = feature.properties;
+      const popupHtml = `
+        <div>
+          <strong>${props.species}</strong><br>
+          ${props.location_name}<br>
+          <a href="/sightings/${props.id}">View</a>
+        </div>
+      `;
+      layer.bindPopup(popupHtml);
+    }
+  }).addTo(map);
+
+  // Fit map to markers if any exist
+  if (geoData.features.length > 0) {
+    const bounds = sightingsLayer.getBounds();
+    map.fitBounds(bounds, { padding: [20, 20] });
+  }
+</script>
+
+</body>
+</html>
