@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ sighting.species }}</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+</head>
+<body>
+
+<p>
+  <a href="{{ url_for('main.home') }}">← Home</a> |
+  <a href="{{ url_for('sightings.list_view') }}">View sightings-- List</a> |
+  <a href="{{ url_for('sightings.map_view') }}">View Sightings-- Map</a>
+</p>
+
+
+<h2>{{ sighting.species }}</h2>
+<p><strong>Location:</strong> {{ "Should we make the users manually enter a location name? or just have the map? idk" }}</p>
+<p><strong>Date:</strong> {{ sighting.date_posted.strftime('%Y-%m-%d') }}</p>
+
+{% if sighting.description %}
+    <p><strong>Description:</strong> {{ sighting.description }}</p>
+{% endif %}
+
+{% if sighting.image_file %}
+    <img src="{{ url_for('static', filename='uploads/' + sighting.image_file) }}" alt="Sighting image"
+         style="max-width: 100%; max-height: 500px;">
+{% endif %}
+
+<div id="sighting-map" style="height: 300px; margin-top: 20px;"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+    const map = L.map('sighting-map').setView([{{ sighting.latitude }}, {{ sighting.longitude }}], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    L.marker([{{ sighting.latitude }}, {{ sighting.longitude }}]).addTo(map)
+        .bindPopup("{{ sighting.species }}").openPopup();
+</script>
+
+</body>
+</html>
