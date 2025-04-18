@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+</head>
+<body>
+<p><a href="{{ url_for('main.home') }}">← Back to Home</a></p>
+<h2>My Profile</h2>
+
+<form method="POST" action="{{ url_for('user.account') }}">
+    {{ form.hidden_tag() }}
+
+    <div>
+        {{ form.username.label }}<br>
+        {{ form.username }}<br>
+        {% for error in form.username.errors %}
+            <span style="color: red;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.email.label }}<br>
+        {{ form.email }}<br>
+        {% for error in form.email.errors %}
+            <span style="color: red;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.submit }}
+    </div>
+</form>
+
+<h3>My Sightings</h3>
+{% if sightings %}
+    <ul>
+        {% for sighting in sightings %}
+            <li>
+                <a href="{{ url_for('sightings.view_sighting', sighting_id=sighting.id) }}">
+                    {{ sighting.species }} — {{ sighting.location_name }} ({{ sighting.date_posted.strftime('%Y-%m-%d') }})
+                </a>
+                |
+                <a href="{{ url_for('sightings.edit_sighting', sighting_id=sighting.id) }}">Edit</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No sightings yet.</p>
+{% endif %}
+
+
+</body>
+</html>
