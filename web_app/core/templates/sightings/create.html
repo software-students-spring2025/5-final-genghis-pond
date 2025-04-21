@@ -10,15 +10,11 @@
 <p><a href="{{ url_for('main.home') }}">← Back to Home</a></p>
 <form method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
-    <div>
-        {{ form.species.label }}<br>
-        {{ form.species }}<br>
-        {% for error in form.species.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
     {{ form.latitude(id="latitude", type="hidden") }}
     {{ form.longitude(id="longitude", type="hidden") }}
+    {{ form.machine_prediction(id="machine_prediction_hidden", type="hidden") }}
+    {{ form.machine_confidence(id="machine_confidence_hidden", type="hidden") }}
+
     {% if legend == "Edit Sighting" %}
         <div>
             <p>Current image:</p>
@@ -48,6 +44,27 @@
         </div>
     {% endif %}
     <div>
+        <label>Machine Prediction:</label><br>
+        <div id="machine_prediction_display" style="font-weight: bold;"></div>
+    </div>
+    <div>
+        <label>Machine Confidence:</label><br>
+        <div id="machine_confidence_display" style="font-weight: bold;"></div>
+    </div>
+    <div>
+        <label>Issues with the automatic classification? Enter your species guess here:</label><br>
+        {{ form.species_guess(id="species_guess") }}<br>
+        {% for error in form.species_guess.errors %}
+            <span style="color: red;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+    
+    <div>
+        <label>Rate confidence in your correction (1-5):</label><br>
+        <input type="number" id="correction_confidence" name="correction_confidence" min="1" max="5" disabled><br>
+    </div>
+    
+    <div>
         {{ form.description.label }}<br>
         {{ form.description }}<br>
         {% for error in form.description.errors %}
@@ -67,6 +84,155 @@
   </button>
 </form>
 {% endif %}
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script> 
+<script>
+document.addEventListener('DOMContentLoaded', function() { // also dk about this JS -- anna
+    const photoInput = document.querySelector('input[name="photo"]');
+    const speciesGuessInput = document.getElementById('species_guess');
+    const correctionConfidenceInput = document.getElementById('correction_confidence');
+
+    let validSpecies = [];
+    let fuse = null;
+
+    console.log('Sending photo for prediction');
+    // valid species from full_data.tsv "common_name" column
+    fetch('{{ url_for("sightings.species_names") }}')
+        .then(response => response.json())
+        .then(data => {
+            validSpecies = data;
+            fuse = new Fuse(validSpecies, {
+                includeScore: true,
+                threshold: 0.4,
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching species list:', error);
+        });
+
+    if (photoInput) {
+        photoInput.addEventListener('change', function() {
+            const file = photoInput.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('photo', file);
+            const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+            formData.append('csrf_token', csrfToken);
+
+            const machinePredictionDisplay = document.getElementById('machine_prediction_display');
+            const machineConfidenceDisplay = document.getElementById('machine_confidence_display');
+            const machinePredictionHiddenInput = document.getElementById('machine_prediction_hidden');
+            const machineConfidenceHiddenInput = document.getElementById('machine_confidence_hidden');
+
+            machinePredictionDisplay.innerText = "⏳ Predicting species...";
+            machineConfidenceDisplay.innerText = "";
+
+            fetch('{{ url_for("sightings.predict_species") }}', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Prediction response received:', data);
+                if (data.species) {
+                    machinePredictionDisplay.innerText = `${data.species}`;
+                    machineConfidenceDisplay.innerText = `${data.confidence}/5`;
+                    document.getElementById('machine_prediction_hidden').value = data.species;
+                    document.getElementById('machine_confidence_hidden').value = data.confidence;
+                    console.log('Received mlpred hidden input:', machinePredictionHiddenInput.value);
+                    console.log('Received mlconf hidden input:', machineConfidenceHiddenInput.value);
+                } else {
+                    machinePredictionDisplay.innerText = 'Unable to identify species';
+                    // theoretically this should show up if the package worked but no species match
+                    document.getElementById('machine_prediction_hidden').value = '';
+                    document.getElementById('machine_confidence_hidden').value = '';
+                }
+            })
+            .catch(error => {
+                console.error('Error predicting species:', error);
+                machinePredictionDisplay.innerText = 'Error with machine prediction';
+                // but i think it's going here automatically because i didn't error handle somewhere
+                document.getElementById('machine_prediction_hidden').value = '';
+                document.getElementById('machine_confidence_hidden').value = '';
+            });
+        });
+    }
+    console.log('Moving to suggestion box');
+    let suggestionBox = null;
+
+    speciesGuessInput.addEventListener('input', function() {
+        const guess = speciesGuessInput.value.trim();
+        correctionConfidenceInput.disabled = guess === '';
+
+        if (!guess || !fuse) { // fuzzy search for nearest valid name from full_data.tsv
+            if (suggestionBox) suggestionBox.remove();
+            return;
+        }
+
+        const results = fuse.search(guess, { limit: 5 });
+        if (results.length > 0) {
+            showSuggestions(results.map(r => r.item));
+        } else {
+            if (suggestionBox) suggestionBox.remove();
+        }
+    });
+
+    // dropdown suggestion for autocomplete valid name
+    function showSuggestions(suggestions) {
+        if (suggestionBox) suggestionBox.remove();
+
+        suggestionBox = document.createElement('div');
+        suggestionBox.style.position = 'absolute';
+        suggestionBox.style.border = '1px solid #ccc';
+        suggestionBox.style.background = 'white';
+        suggestionBox.style.zIndex = 1000;
+        suggestionBox.style.width = speciesGuessInput.offsetWidth + 'px';
+        
+        suggestions.forEach(function(s) {
+            const item = document.createElement('div');
+            item.style.padding = '5px';
+            item.style.cursor = 'pointer';
+            item.innerText = s;
+            item.addEventListener('click', function() {
+                speciesGuessInput.value = s;
+                suggestionBox.remove();
+                correctionConfidenceInput.disabled = false;
+            });
+            suggestionBox.appendChild(item);
+        });
+
+        const rect = speciesGuessInput.getBoundingClientRect();
+        suggestionBox.style.left = rect.left + window.scrollX + 'px';
+        suggestionBox.style.top = rect.bottom + window.scrollY + 'px';
+        
+        document.body.appendChild(suggestionBox);
+    }
+
+    document.addEventListener('click', function(event) {
+        if (suggestionBox && !speciesGuessInput.contains(event.target) && !suggestionBox.contains(event.target)) {
+            suggestionBox.remove();
+        }
+
+    function toggleConfidenceRequirement() {
+        if (speciesGuessInput.value.trim().length > 0) {
+            correctionConfidenceInput.disabled = false;
+            correctionConfidenceInput.required = true;
+        } else {
+            correctionConfidenceInput.disabled = true;
+            correctionConfidenceInput.required = false;
+            correctionConfidenceInput.value = ''; // optional: clears value if disabled
+        }
+    }
+
+    // Listen for typing changes
+    speciesGuessInput.addEventListener('input', toggleConfidenceRequirement);
+
+    // Make sure it's set correctly on page load too
+    toggleConfidenceRequirement();
+    });
+});
+</script>
+
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <!-- not 100% sure about this JS -->
 <script>

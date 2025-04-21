@@ -1,0 +1,717 @@
+{
+    "predictions": [
+        {
+            "filepath": "core/static/uploads/01733cbea0349873.png",
+            "classifications": {
+                "classes": [
+                    "990ae9dd-7a59-4344-afcb-1b7b21368000;mammalia;primates;hominidae;homo;sapiens;human",
+                    "f1856211-cfb7-4a5b-9158-c0f72fd09ee6;;;;;;blank",
+                    "aca65aaa-8c6d-4b69-94de-842b08b13bd6;mammalia;cetartiodactyla;bovidae;bos;taurus;domestic cattle",
+                    "3d80f1d6-b1df-4966-9ff4-94053c7a902a;mammalia;carnivora;canidae;canis;familiaris;domestic dog",
+                    "b1352069-a39c-4a84-a949-60044271c0c1;aves;;;;;bird"
+                ],
+                "scores": [
+                    0.9954575300216675,
+                    0.0016270158812403679,
+                    0.0010715461103245616,
+                    0.0006135988514870405,
+                    0.00013139886141289026
+                ]
+            },
+            "detections": [
+                {
+                    "category": "2",
+                    "label": "human",
+                    "conf": 0.7870479226112366,
+                    "bbox": [
+                        0.032499998807907104,
+                        0.2192307710647583,
+                        0.8725000023841858,
+                        0.7807692289352417
+                    ]
+                },
+                {
+                    "category": "2",
+                    "label": "human",
+                    "conf": 0.010698315687477589,
+                    "bbox": [
+                        0.032499998807907104,
+                        0.3692307472229004,
+                        0.4637500047683716,
+                        0.6307692527770996
+                    ]
+                }
+            ],
+            "prediction": "990ae9dd-7a59-4344-afcb-1b7b21368000;mammalia;primates;hominidae;homo;sapiens;human",
+            "prediction_score": 0.7870479226112366,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/051a9249d3f2fdca.jpg",
+            "classifications": {
+                "classes": [
+                    "b1352069-a39c-4a84-a949-60044271c0c1;aves;;;;;bird",
+                    "020485f6-cbc7-4c52-8d78-24ceff72efb1;aves;passeriformes;icteridae;sturnella;neglecta;western meadowlark",
+                    "33f95ccf-52cd-423f-82c9-c86ef1173905;aves;charadriiformes;scolopacidae;gallinago;delicata;wilson's snipe",
+                    "837e12c2-f30c-4875-afeb-32d51938f139;aves;galliformes;;;;galliformes order",
+                    "d195f0ca-438e-4826-8fce-5e0de1ee27b6;aves;strigiformes;strigidae;athene;cunicularia;burrowing owl"
+                ],
+                "scores": [
+                    0.8981688618659973,
+                    0.0153428353369236,
+                    0.005828356835991144,
+                    0.0033177430741488934,
+                    0.003170271869748831
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.8540647625923157,
+                    "bbox": [
+                        0.26250001788139343,
+                        0.3028571605682373,
+                        0.7166666388511658,
+                        0.5514285564422607
+                    ]
+                }
+            ],
+            "prediction": "b1352069-a39c-4a84-a949-60044271c0c1;aves;;;;;bird",
+            "prediction_score": 0.8981688618659973,
+            "prediction_source": "classifier",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/16f01b167354867d.png",
+            "classifications": {
+                "classes": [
+                    "3d80f1d6-b1df-4966-9ff4-94053c7a902a;mammalia;carnivora;canidae;canis;familiaris;domestic dog",
+                    "d3d5325f-b055-4925-b875-5cd28af54215;mammalia;carnivora;canidae;canis;;canis species",
+                    "189cdd40-b83d-48d1-a4fa-e43a104f2a23;mammalia;cetartiodactyla;bovidae;capra;aegagrus hircus;domestic goat",
+                    "5e34edec-101e-444d-92f5-b6e0d87a89b6;mammalia;cetartiodactyla;bovidae;capra;;capra species",
+                    "84a63d07-825f-47d2-bc4b-17057745bad4;mammalia;primates;cercopithecidae;rhinopithecus;roxellana;golden snub-nosed monkey"
+                ],
+                "scores": [
+                    0.5733397603034973,
+                    0.2930546700954437,
+                    0.019938254728913307,
+                    0.007413466461002827,
+                    0.006314482539892197
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.815136194229126,
+                    "bbox": [
+                        0.2724999785423279,
+                        0.01651376485824585,
+                        0.6299999952316284,
+                        0.9504587054252625
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.0752667710185051,
+                    "bbox": [
+                        0.42249996960163116,
+                        0.014678895473480225,
+                        0.39750000834465027,
+                        0.6403669714927673
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.03843338415026665,
+                    "bbox": [
+                        0.7087500095367432,
+                        0.0,
+                        0.2549999952316284,
+                        0.6972476840019226
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.03643655404448509,
+                    "bbox": [
+                        0.010000020265579224,
+                        0.33027520775794983,
+                        0.8112499713897705,
+                        0.6678898930549622
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.022300267592072487,
+                    "bbox": [
+                        0.0012499988079071045,
+                        0.35229358077049255,
+                        0.44624999165534973,
+                        0.3559632897377014
+                    ]
+                }
+            ],
+            "prediction": "d3d5325f-b055-4925-b875-5cd28af54215;mammalia;carnivora;canidae;canis;;canis species",
+            "prediction_score": 0.866394430398941,
+            "prediction_source": "classifier+rollup_to_genus",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/460dbe0d276c5139.JPG",
+            "classifications": {
+                "classes": [
+                    "f1856211-cfb7-4a5b-9158-c0f72fd09ee6;;;;;;blank",
+                    "aca65aaa-8c6d-4b69-94de-842b08b13bd6;mammalia;cetartiodactyla;bovidae;bos;taurus;domestic cattle",
+                    "aaf3b049-36e6-46dd-9a07-8a580e9618b7;mammalia;carnivora;canidae;canis;latrans;coyote",
+                    "b1352069-a39c-4a84-a949-60044271c0c1;aves;;;;;bird",
+                    "9212982e-8a58-4775-a6ac-e9a43110d8f5;mammalia;carnivora;felidae;felis;catus;domestic cat"
+                ],
+                "scores": [
+                    0.5165117979049683,
+                    0.17679539322853088,
+                    0.08942635357379913,
+                    0.02846320904791355,
+                    0.023983431980013847
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.5021837949752808,
+                    "bbox": [
+                        0.002499997615814209,
+                        0.09756097197532654,
+                        0.9399999976158142,
+                        0.858793318271637
+                    ]
+                }
+            ],
+            "prediction": "1f689929-883d-4dae-958c-3d57ab5b6c16;;;;;;animal",
+            "prediction_score": 0.5021837949752808,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/5ae18fa0065d94fb.png",
+            "classifications": {
+                "classes": [
+                    "990ae9dd-7a59-4344-afcb-1b7b21368000;mammalia;primates;hominidae;homo;sapiens;human",
+                    "f1856211-cfb7-4a5b-9158-c0f72fd09ee6;;;;;;blank",
+                    "aca65aaa-8c6d-4b69-94de-842b08b13bd6;mammalia;cetartiodactyla;bovidae;bos;taurus;domestic cattle",
+                    "3d80f1d6-b1df-4966-9ff4-94053c7a902a;mammalia;carnivora;canidae;canis;familiaris;domestic dog",
+                    "b1352069-a39c-4a84-a949-60044271c0c1;aves;;;;;bird"
+                ],
+                "scores": [
+                    0.9944331049919128,
+                    0.001959027722477913,
+                    0.0008564539020881057,
+                    0.0003601684875320643,
+                    0.00035538675729185343
+                ]
+            },
+            "detections": [
+                {
+                    "category": "2",
+                    "label": "human",
+                    "conf": 0.7394947409629822,
+                    "bbox": [
+                        0.03749999403953552,
+                        0.1538461446762085,
+                        0.8924999833106995,
+                        0.8461538553237915
+                    ]
+                }
+            ],
+            "prediction": "990ae9dd-7a59-4344-afcb-1b7b21368000;mammalia;primates;hominidae;homo;sapiens;human",
+            "prediction_score": 0.7394947409629822,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/74119889ae6f70ed.jpg",
+            "classifications": {
+                "classes": [
+                    "70593171-87a7-4256-a9ce-577f064b8490;aves;accipitriformes;accipitridae;;;accipitridae family",
+                    "43e731f6-47cc-4ae0-9909-82ff3de1f1d1;aves;accipitriformes;accipitridae;buteo;buteo;eurasian buzzard",
+                    "ed449f52-bc93-4502-a035-ed3c19927cf0;aves;accipitriformes;accipitridae;buteogallus;urubitinga;great black hawk",
+                    "69e2b291-6a8f-4709-9c26-07266c04cbbd;aves;accipitriformes;accipitridae;rupornis;magnirostris;roadside hawk",
+                    "9ce674d9-7fbc-4f5b-b7cc-4c57bd947e3f;aves;accipitriformes;accipitridae;spilornis;cheela;crested serpent-eagle"
+                ],
+                "scores": [
+                    0.08016588538885117,
+                    0.07993471622467041,
+                    0.07825105637311935,
+                    0.06394325941801071,
+                    0.046963438391685486
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.8098770380020142,
+                    "bbox": [
+                        0.1433691680431366,
+                        0.16874998807907104,
+                        0.7078853249549866,
+                        0.7350000143051147
+                    ]
+                }
+            ],
+            "prediction": "1f689929-883d-4dae-958c-3d57ab5b6c16;;;;;;animal",
+            "prediction_score": 0.8098770380020142,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/87fdd148f7cfab71.png",
+            "classifications": {
+                "classes": [
+                    "3d80f1d6-b1df-4966-9ff4-94053c7a902a;mammalia;carnivora;canidae;canis;familiaris;domestic dog",
+                    "189cdd40-b83d-48d1-a4fa-e43a104f2a23;mammalia;cetartiodactyla;bovidae;capra;aegagrus hircus;domestic goat",
+                    "9212982e-8a58-4775-a6ac-e9a43110d8f5;mammalia;carnivora;felidae;felis;catus;domestic cat",
+                    "d3d5325f-b055-4925-b875-5cd28af54215;mammalia;carnivora;canidae;canis;;canis species",
+                    "aca65aaa-8c6d-4b69-94de-842b08b13bd6;mammalia;cetartiodactyla;bovidae;bos;taurus;domestic cattle"
+                ],
+                "scores": [
+                    0.26232731342315674,
+                    0.17447590827941895,
+                    0.05922771245241165,
+                    0.04912998154759407,
+                    0.04524226114153862
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.7560822367668152,
+                    "bbox": [
+                        0.008749991655349731,
+                        0.3825136423110962,
+                        0.5112500190734863,
+                        0.6156648397445679
+                    ]
+                }
+            ],
+            "prediction": "1f689929-883d-4dae-958c-3d57ab5b6c16;;;;;;animal",
+            "prediction_score": 0.7560822367668152,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/a497a28acfe1bc29.jpg",
+            "classifications": {
+                "classes": [
+                    "70593171-87a7-4256-a9ce-577f064b8490;aves;accipitriformes;accipitridae;;;accipitridae family",
+                    "43e731f6-47cc-4ae0-9909-82ff3de1f1d1;aves;accipitriformes;accipitridae;buteo;buteo;eurasian buzzard",
+                    "ed449f52-bc93-4502-a035-ed3c19927cf0;aves;accipitriformes;accipitridae;buteogallus;urubitinga;great black hawk",
+                    "69e2b291-6a8f-4709-9c26-07266c04cbbd;aves;accipitriformes;accipitridae;rupornis;magnirostris;roadside hawk",
+                    "9ce674d9-7fbc-4f5b-b7cc-4c57bd947e3f;aves;accipitriformes;accipitridae;spilornis;cheela;crested serpent-eagle"
+                ],
+                "scores": [
+                    0.08016588538885117,
+                    0.07993471622467041,
+                    0.07825105637311935,
+                    0.06394325941801071,
+                    0.046963438391685486
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.8098770380020142,
+                    "bbox": [
+                        0.1433691680431366,
+                        0.16874998807907104,
+                        0.7078853249549866,
+                        0.7350000143051147
+                    ]
+                }
+            ],
+            "prediction": "1f689929-883d-4dae-958c-3d57ab5b6c16;;;;;;animal",
+            "prediction_score": 0.8098770380020142,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/a5f60deb85e8fcb0.png",
+            "classifications": {
+                "classes": [
+                    "3d80f1d6-b1df-4966-9ff4-94053c7a902a;mammalia;carnivora;canidae;canis;familiaris;domestic dog",
+                    "189cdd40-b83d-48d1-a4fa-e43a104f2a23;mammalia;cetartiodactyla;bovidae;capra;aegagrus hircus;domestic goat",
+                    "9212982e-8a58-4775-a6ac-e9a43110d8f5;mammalia;carnivora;felidae;felis;catus;domestic cat",
+                    "d3d5325f-b055-4925-b875-5cd28af54215;mammalia;carnivora;canidae;canis;;canis species",
+                    "aca65aaa-8c6d-4b69-94de-842b08b13bd6;mammalia;cetartiodactyla;bovidae;bos;taurus;domestic cattle"
+                ],
+                "scores": [
+                    0.26232725381851196,
+                    0.1744760125875473,
+                    0.05922773480415344,
+                    0.04912995919585228,
+                    0.04524225369095802
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.7560822367668152,
+                    "bbox": [
+                        0.008749991655349731,
+                        0.3825136423110962,
+                        0.5112500190734863,
+                        0.6156648397445679
+                    ]
+                }
+            ],
+            "prediction": "1f689929-883d-4dae-958c-3d57ab5b6c16;;;;;;animal",
+            "prediction_score": 0.7560822367668152,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/a626588a7584f913.png",
+            "classifications": {
+                "classes": [
+                    "9212982e-8a58-4775-a6ac-e9a43110d8f5;mammalia;carnivora;felidae;felis;catus;domestic cat",
+                    "6286f8b4-312f-4d04-a018-51a5d65be3f6;mammalia;rodentia;sciuridae;marmota;marmota;alpine marmot",
+                    "fd8f5fbf-494b-4de4-969b-a8d2fdac7f38;mammalia;rodentia;sciuridae;marmota;sibirica;mongolian marmot",
+                    "7a839b39-9916-45ec-a01b-d88d814a11ed;mammalia;rodentia;myocastoridae;myocastor;coypus;nutria",
+                    "27f352c1-e837-4e42-bd3c-a1923b3b5e30;mammalia;lagomorpha;ochotonidae;ochotona;thibetana;moupin pika"
+                ],
+                "scores": [
+                    0.08193744719028473,
+                    0.08068116009235382,
+                    0.07202108204364777,
+                    0.04538123682141304,
+                    0.0367366187274456
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.6691219806671143,
+                    "bbox": [
+                        0.17314931750297546,
+                        0.13750001788139343,
+                        0.5796737670898438,
+                        0.7637500166893005
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.13736772537231445,
+                    "bbox": [
+                        0.30991217494010925,
+                        0.6100000292062759,
+                        0.44040149450302124,
+                        0.29249998927116394
+                    ]
+                },
+                {
+                    "category": "2",
+                    "label": "human",
+                    "conf": 0.05676397681236267,
+                    "bbox": [
+                        0.0025094151496887207,
+                        0.14750000834465027,
+                        0.6888331174850464,
+                        0.7225000262260437
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.04461641609668732,
+                    "bbox": [
+                        0.6800501942634583,
+                        0.3200000077486038,
+                        0.2898368835449219,
+                        0.2874999940395355
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.02325349487364292,
+                    "bbox": [
+                        0.1593475639820099,
+                        0.13749998807907104,
+                        0.5420325994491577,
+                        0.3675000071525574
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.021619152277708054,
+                    "bbox": [
+                        0.7628607526421547,
+                        0.48375002294778824,
+                        0.20953576266765594,
+                        0.13875000178813934
+                    ]
+                }
+            ],
+            "prediction": "1f689929-883d-4dae-958c-3d57ab5b6c16;;;;;;animal",
+            "prediction_score": 0.6691219806671143,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/d12ba7c7f4750a50.png",
+            "classifications": {
+                "classes": [
+                    "3d80f1d6-b1df-4966-9ff4-94053c7a902a;mammalia;carnivora;canidae;canis;familiaris;domestic dog",
+                    "189cdd40-b83d-48d1-a4fa-e43a104f2a23;mammalia;cetartiodactyla;bovidae;capra;aegagrus hircus;domestic goat",
+                    "9212982e-8a58-4775-a6ac-e9a43110d8f5;mammalia;carnivora;felidae;felis;catus;domestic cat",
+                    "d3d5325f-b055-4925-b875-5cd28af54215;mammalia;carnivora;canidae;canis;;canis species",
+                    "aca65aaa-8c6d-4b69-94de-842b08b13bd6;mammalia;cetartiodactyla;bovidae;bos;taurus;domestic cattle"
+                ],
+                "scores": [
+                    0.26232725381851196,
+                    0.1744760125875473,
+                    0.05922773480415344,
+                    0.04912995919585228,
+                    0.04524225369095802
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.7560822367668152,
+                    "bbox": [
+                        0.008749991655349731,
+                        0.3825136423110962,
+                        0.5112500190734863,
+                        0.6156648397445679
+                    ]
+                }
+            ],
+            "prediction": "1f689929-883d-4dae-958c-3d57ab5b6c16;;;;;;animal",
+            "prediction_score": 0.7560822367668152,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/d29362ea3a3037b1.jpg",
+            "classifications": {
+                "classes": [
+                    "70593171-87a7-4256-a9ce-577f064b8490;aves;accipitriformes;accipitridae;;;accipitridae family",
+                    "43e731f6-47cc-4ae0-9909-82ff3de1f1d1;aves;accipitriformes;accipitridae;buteo;buteo;eurasian buzzard",
+                    "ed449f52-bc93-4502-a035-ed3c19927cf0;aves;accipitriformes;accipitridae;buteogallus;urubitinga;great black hawk",
+                    "69e2b291-6a8f-4709-9c26-07266c04cbbd;aves;accipitriformes;accipitridae;rupornis;magnirostris;roadside hawk",
+                    "9ce674d9-7fbc-4f5b-b7cc-4c57bd947e3f;aves;accipitriformes;accipitridae;spilornis;cheela;crested serpent-eagle"
+                ],
+                "scores": [
+                    0.0801658108830452,
+                    0.07993471622467041,
+                    0.07825105637311935,
+                    0.0639432892203331,
+                    0.04696346074342728
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.8098770380020142,
+                    "bbox": [
+                        0.1433691680431366,
+                        0.16874998807907104,
+                        0.7078853249549866,
+                        0.7350000143051147
+                    ]
+                }
+            ],
+            "prediction": "1f689929-883d-4dae-958c-3d57ab5b6c16;;;;;;animal",
+            "prediction_score": 0.8098770380020142,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/e092f1c921652e61.png",
+            "classifications": {
+                "classes": [
+                    "3d80f1d6-b1df-4966-9ff4-94053c7a902a;mammalia;carnivora;canidae;canis;familiaris;domestic dog",
+                    "d3d5325f-b055-4925-b875-5cd28af54215;mammalia;carnivora;canidae;canis;;canis species",
+                    "189cdd40-b83d-48d1-a4fa-e43a104f2a23;mammalia;cetartiodactyla;bovidae;capra;aegagrus hircus;domestic goat",
+                    "5e34edec-101e-444d-92f5-b6e0d87a89b6;mammalia;cetartiodactyla;bovidae;capra;;capra species",
+                    "84a63d07-825f-47d2-bc4b-17057745bad4;mammalia;primates;cercopithecidae;rhinopithecus;roxellana;golden snub-nosed monkey"
+                ],
+                "scores": [
+                    0.5733397603034973,
+                    0.2930546700954437,
+                    0.019938265904784203,
+                    0.007413466461002827,
+                    0.006314484402537346
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.815136194229126,
+                    "bbox": [
+                        0.2724999785423279,
+                        0.01651376485824585,
+                        0.6299999952316284,
+                        0.9504587054252625
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.0752667710185051,
+                    "bbox": [
+                        0.42249996960163116,
+                        0.014678895473480225,
+                        0.39750000834465027,
+                        0.6403669714927673
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.03843338415026665,
+                    "bbox": [
+                        0.7087500095367432,
+                        0.0,
+                        0.2549999952316284,
+                        0.6972476840019226
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.03643655404448509,
+                    "bbox": [
+                        0.010000020265579224,
+                        0.33027520775794983,
+                        0.8112499713897705,
+                        0.6678898930549622
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.022300267592072487,
+                    "bbox": [
+                        0.0012499988079071045,
+                        0.35229358077049255,
+                        0.44624999165534973,
+                        0.3559632897377014
+                    ]
+                }
+            ],
+            "prediction": "d3d5325f-b055-4925-b875-5cd28af54215;mammalia;carnivora;canidae;canis;;canis species",
+            "prediction_score": 0.866394430398941,
+            "prediction_source": "classifier+rollup_to_genus",
+            "model_version": "4.0.0a"
+        },
+        {
+            "filepath": "core/static/uploads/e1255684cc86beeb.png",
+            "classifications": {
+                "classes": [
+                    "9212982e-8a58-4775-a6ac-e9a43110d8f5;mammalia;carnivora;felidae;felis;catus;domestic cat",
+                    "6286f8b4-312f-4d04-a018-51a5d65be3f6;mammalia;rodentia;sciuridae;marmota;marmota;alpine marmot",
+                    "fd8f5fbf-494b-4de4-969b-a8d2fdac7f38;mammalia;rodentia;sciuridae;marmota;sibirica;mongolian marmot",
+                    "7a839b39-9916-45ec-a01b-d88d814a11ed;mammalia;rodentia;myocastoridae;myocastor;coypus;nutria",
+                    "27f352c1-e837-4e42-bd3c-a1923b3b5e30;mammalia;lagomorpha;ochotonidae;ochotona;thibetana;moupin pika"
+                ],
+                "scores": [
+                    0.08193744719028473,
+                    0.08068116009235382,
+                    0.07202108204364777,
+                    0.04538123682141304,
+                    0.0367366187274456
+                ]
+            },
+            "detections": [
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.6691219806671143,
+                    "bbox": [
+                        0.17314931750297546,
+                        0.13750001788139343,
+                        0.5796737670898438,
+                        0.7637500166893005
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.13736772537231445,
+                    "bbox": [
+                        0.30991217494010925,
+                        0.6100000292062759,
+                        0.44040149450302124,
+                        0.29249998927116394
+                    ]
+                },
+                {
+                    "category": "2",
+                    "label": "human",
+                    "conf": 0.05676397681236267,
+                    "bbox": [
+                        0.0025094151496887207,
+                        0.14750000834465027,
+                        0.6888331174850464,
+                        0.7225000262260437
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.04461641609668732,
+                    "bbox": [
+                        0.6800501942634583,
+                        0.3200000077486038,
+                        0.2898368835449219,
+                        0.2874999940395355
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.02325349487364292,
+                    "bbox": [
+                        0.1593475639820099,
+                        0.13749998807907104,
+                        0.5420325994491577,
+                        0.3675000071525574
+                    ]
+                },
+                {
+                    "category": "1",
+                    "label": "animal",
+                    "conf": 0.021619152277708054,
+                    "bbox": [
+                        0.7628607526421547,
+                        0.48375002294778824,
+                        0.20953576266765594,
+                        0.13875000178813934
+                    ]
+                }
+            ],
+            "prediction": "1f689929-883d-4dae-958c-3d57ab5b6c16;;;;;;animal",
+            "prediction_score": 0.6691219806671143,
+            "prediction_source": "detector",
+            "model_version": "4.0.0a"
+        }
+    ]
+}

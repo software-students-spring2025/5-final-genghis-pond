@@ -4,6 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+certifi = "==2025.1.31"
+pymongo = "*"
 
 [dev-packages]
 
