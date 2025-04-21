@@ -17,6 +17,10 @@ from core.forms.sightings_forms import SightingForm
 from core import csrf
 from math import radians, cos, sin, asin, sqrt
 from datetime import datetime
+import subprocess
+import os
+import json
+import pandas as pd
 
 sightings = Blueprint("sightings", __name__)
 
@@ -26,13 +30,31 @@ def save_image(form_image):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_image.filename)
     image_filename = random_hex + f_ext
-    image_path = os.path.join(current_app.root_path, "static/uploads", image_filename)
+    image_path = os.path.join(current_app.root_path, "static/uploads/", image_filename)
     # Resizes the image with max dimension 800 x 8000
     output_size = (800, 800)
     i = Image.open(form_image)
     i.thumbnail(output_size)
     i.save(image_path)
+
     return image_filename
+
+def save_temp_image(form_image):
+    '''
+    temporary folder for ml animal classification
+    # probably not a good way to do this
+    '''
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_image.filename)
+    image_filename = random_hex + f_ext
+    image_path = os.path.join(current_app.root_path, "static/uploads/ml_temp", image_filename)
+    # Resizes the image with max dimension 800 x 8000
+    output_size = (800, 800)
+    i = Image.open(form_image)
+    i.thumbnail(output_size)
+    i.save(image_path)
+
+    return image_filename # not necessary
 
 
 # again I'm not sure how this trig works exactly got this online
@@ -106,8 +128,43 @@ def create_sighting():
         if form.photo.data:
             image_file = save_image(form.photo.data)
         # create sighting object
+        species_votes = {}
+
+        ml_prediction = form.machine_prediction.data
+        ml_confidence = form.machine_confidence.data
+        
+        if ml_prediction and ml_confidence:
+            species_votes[ml_prediction] = int(ml_confidence)
+        print("ML PREDICTION: ", ml_prediction)
+
+        print("ML PREDICTION: ", ml_confidence)
+
+        user_prediction = form.species_guess.data
+        user_confidence = form.correction_confidence.data
+        print("user PREDICTION: ", user_prediction)
+        print("user CONFIDENCE: ", user_confidence)
+
+        if user_prediction and user_confidence:
+            species_votes[user_prediction] = int(user_confidence)
+
+        if ml_prediction and user_prediction: # initial vote weigh user guess higher
+            if ml_prediction != user_prediction:
+                species_votes[ml_prediction] = int(ml_confidence) # don't doublecount initial vote
+
+            if ml_confidence > user_confidence:
+                species_vote = ml_prediction
+            else:
+                species_vote = user_prediction
+        elif ml_prediction:
+            species_vote = ml_prediction
+        elif user_prediction:
+            species_vote = user_prediction
+        else:
+            species_votes["unknown"] = 1 # default to 1 for low confidence
+            species_vote = 'unknown'
+
         sighting = Sighting(
-            species=form.species.data,
+            species=species_vote,
             description=form.description.data,
             date_posted=datetime.utcnow(),
             location_name=form.location_name.data,
@@ -115,6 +172,7 @@ def create_sighting():
             longitude=form.longitude.data,
             user_id=current_user.id,
             image_file=image_file,
+            species_votes=species_votes,
         )
         sighting.save()
         flash("Your wildlife sighting has been posted!", "success")
@@ -125,6 +183,83 @@ def create_sighting():
         form=form,
         legend="Report Wildlife Sighting",
     )
+
+
+@sightings.route("/predict_species", methods=["POST"])
+@login_required
+def predict_species():
+    '''
+    Call find_species once a photo is uploaded
+    '''
+    if 'photo' not in request.files:
+        return {'error': 'No file uploaded'}, 400
+
+    file = request.files['photo']
+    if file.filename == '':
+        return {'error': 'No selected file'}, 400
+
+    save_temp_image(file)
+    upload_path = os.path.join(current_app.root_path, "static/uploads/ml_temp")
+    output_path = os.path.join(current_app.root_path, "outputs/predictions.json")
+    prediction = find_species(upload_path, output_path)
+    if prediction:
+        species_name, score, confidence = prediction
+        print("Predict species: ", prediction)
+        return {'species': species_name, 'score': score, 'confidence': confidence}
+    else:
+        return {'error': 'No species found'}, 400
+
+@sightings.route("/species_names")
+def species_names():
+    '''
+    Pull the 'common_name' column out of full_data.tsv for fuzzy search
+    '''
+    df_path = os.path.join(current_app.root_path, 'databases/full_data.tsv')
+    df = pd.read_csv(df_path, delimiter='\t')
+    print(df["common_name"].head())
+    names = df['common_name'].dropna().unique().tolist()
+    names.append('unknown') # manually input unknown for nonsense predictions
+    return jsonify(names)
+
+def find_species(upload_path, output_path):
+    """
+    Call command line function for speciesnet
+    models.yolo not accessible
+    """
+
+    if not os.path.exists(upload_path) or not os.listdir(upload_path):
+        print("Upload path does not exist or is empty.")
+        return # make sure upload folder exists
+
+    subprocess.run([
+        'pipenv', 'run', 'python', '-m', 'speciesnet.scripts.run_model',
+        '--folders', upload_path,
+        '--predictions_json', output_path
+    ], check = True)
+
+    with open(output_path, 'r', encoding="utf-8") as temp_file:
+        predictions_dict = json.load(temp_file)
+
+    os.remove(output_path) # remove the json to avoid storage issues? possibly not necessary
+    for filename in os.listdir(upload_path): # clear ml_temp
+        file_path = os.path.join(upload_path, filename)
+        if os.path.isfile(file_path):
+            os.remove(file_path) # this is more important than removing the json!!!
+    # as is, upload_path should only have ONE image file (the one that is actively being analyzed)
+
+    classes = predictions_dict['predictions'][0]['classifications']['classes']
+    scores = predictions_dict['predictions'][0]['classifications']['scores']
+
+    for i, cl in enumerate(classes):
+        cl_split = cl.split(';')
+        if len(cl_split[-2]) == 0: # indicates no species found
+            classes.remove(cl)
+            del scores[i]
+        else:
+            confidence = int(100 * scores[i]/20) + 1 # scale from 1 to 5
+            print("Found species ", cl_split[-1])
+            return cl_split[-1], scores[i], confidence 
+            # assumes sorted in decreasing confidence order
 
 
 @sightings.route("/sightings/<sighting_id>/edit", methods=["GET", "POST"])
