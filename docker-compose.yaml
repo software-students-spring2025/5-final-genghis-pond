@@ -17,11 +17,4 @@ services:
       - FLASK_ENV=development
     depends_on:
       - mongodb
-  mapi:
-    build: ./mapi
-    environment:
-      - MONGO_URI=mongodb://mongodb:27017/flaskdb
-      - SECRET_KEY=supersecretkey
-      - FLASK_ENV=development
-    ports:
-      - "5001:5001"
+      
