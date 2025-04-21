@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import StringField, TextAreaField, SubmitField, FloatField
+from wtforms import StringField, TextAreaField, SubmitField, FloatField, HiddenField, IntegerField
 from wtforms.validators import DataRequired, Length, Optional, NumberRange
 
 
 class SightingForm(FlaskForm):
-    species = StringField("Species", validators=[DataRequired(), Length(min=2, max=30)])
+    # species = StringField("Species", validators=[DataRequired(), Length(min=2, max=30)])
     description = TextAreaField(
         "Description (Optional)", validators=[Optional(), Length(max=200)]
     )
@@ -22,6 +22,12 @@ class SightingForm(FlaskForm):
         "Longitude", validators=[DataRequired(), NumberRange(min=-180, max=180)]
     )
     photo = FileField("Upload Image")
+
+    machine_prediction = StringField("Machine Prediction:")
+    machine_confidence = IntegerField("Machine Confidence:")
+
+    species_guess = StringField("Issues with the automatic classification? Enter your species guess here or enter \"unknown\":", validators=[Optional(), Length(min=2, max=50)])
+    correction_confidence = IntegerField("Rate confidence in your correction (1 (low) -5 (high))", validators=[Optional(), NumberRange(min=1, max=5)])
     submit = SubmitField("Submit")
 
     # this constructor seems unnecessary but there are
