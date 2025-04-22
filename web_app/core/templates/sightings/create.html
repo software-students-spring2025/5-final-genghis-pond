@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>{{ legend }}</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="../../static/create.css">
 </head>
 <body>
-<h2>{{ legend }}</h2>
-<p><a href="{{ url_for('main.home') }}">← Back to Home</a></p>
+<h2 class = "center">{{ legend }}</h2>
+<p class = "backHome"><a href="{{ url_for('main.home') }}">← Back to Home</a></p>
 <form method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     {{ form.latitude(id="latitude", type="hidden") }}
@@ -35,45 +36,52 @@
             </div>
         </div>
     {% else %}
-        <div>
-            {{ form.photo.label }}<br>
+        <div id = "formPhoto">
+            <div id = "photoText">{{ form.photo.label }}</div>
+            <img id = "uploadIcon" src = "../../static/images/uploadIcon.svg">
             {{ form.photo }}<br>
             {% for error in form.photo.errors %}
                 <span style="color: red;">{{ error }}</span><br>
             {% endfor %}
         </div>
     {% endif %}
-    <div>
-        <label>Machine Prediction:</label><br>
-        <div id="machine_prediction_display" style="font-weight: bold;"></div>
+    <div id = "machineStats">
+        <div>
+            <label>Machine Prediction:</label><br>
+            <div id="machine_prediction_display" style="font-weight: bold;"></div>
+        </div>
+        <div>
+            <label>Machine Confidence:</label><br>
+            <div id="machine_confidence_display" style="font-weight: bold;"></div>
+        </div>
     </div>
     <div>
-        <label>Machine Confidence:</label><br>
-        <div id="machine_confidence_display" style="font-weight: bold;"></div>
+        <div id = "issues">
+            <label>Issues with the automatic classification?<br>Enter your species guess here:</label><br>
+            {{ form.species_guess(id="species_guess") }}<br>
+            {% for error in form.species_guess.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+        
+        <div id = "rate">
+            <label>Rate confidence in your correction (1-5):</label><br>
+            <input type="number" id="correction_confidence" name="correction_confidence" min="1" max="5" disabled><br>
+        </div>
+        
+        <div id = "descriptionDiv">
+            {{ form.description.label }}<br>
+            {{ form.description }}<br>
+            {% for error in form.description.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+    <div class = "center">
+        <button id ="locationBtn" type="button" onclick="useMyLocation()">Use My Current Location</button>
     </div>
-    <div>
-        <label>Issues with the automatic classification? Enter your species guess here:</label><br>
-        {{ form.species_guess(id="species_guess") }}<br>
-        {% for error in form.species_guess.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
-    
-    <div>
-        <label>Rate confidence in your correction (1-5):</label><br>
-        <input type="number" id="correction_confidence" name="correction_confidence" min="1" max="5" disabled><br>
-    </div>
-    
-    <div>
-        {{ form.description.label }}<br>
-        {{ form.description }}<br>
-        {% for error in form.description.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
-    <button type="button" onclick="useMyLocation()">Use My Current Location</button>
-    <div id="location-map" style="height: 400px; margin: 20px 0;"></div>
-    <div>
+    <div id="location-map"></div>
+    <div class = "center">
         {{ form.submit(value=legend) }}
     </div>
 </form>
@@ -84,6 +92,10 @@
   </button>
 </form>
 {% endif %}
+
+<footer>
+    
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script> 
 <script>
 document.addEventListener('DOMContentLoaded', function() { // also dk about this JS -- anna
@@ -123,7 +135,9 @@ document.addEventListener('DOMContentLoaded', function() { // also dk about this
             const machineConfidenceDisplay = document.getElementById('machine_confidence_display');
             const machinePredictionHiddenInput = document.getElementById('machine_prediction_hidden');
             const machineConfidenceHiddenInput = document.getElementById('machine_confidence_hidden');
-
+            const machineStats = document.getElementById("machineStats");
+            machineStats.style.visibility = "visible"
+            machineStats.style.position = "relative"
             machinePredictionDisplay.innerText = "⏳ Predicting species...";
             machineConfidenceDisplay.innerText = "";
 
