@@ -6,7 +6,7 @@ load_dotenv()
 
 class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY") or "duck"
-    MONGO_URI = os.environ.get("MONGO_URI") or "mongodb://localhost:27017/genghis-pond"
+    MONGO_URI = os.environ.get("MONGO_URI") or "mongodb://mongodb:27017/genghis-pond"
     # File upload configuration
     UPLOAD_FOLDER = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "static/uploads"
