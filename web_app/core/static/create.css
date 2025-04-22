@@ -1,0 +1,127 @@
+.center{
+    text-align: center;
+    justify-content: center;
+}
+
+.backHome{
+    width: 150px;
+    height: 40px;
+    border: 1px solid black;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+}
+
+#photoText{
+    text-align: center;
+    font-size: 20px;
+}
+
+#uploadIcon{
+    height: 80px;
+    width: 80px;
+    margin: auto;
+}
+
+#formPhoto{
+    background-color: #fdfdfd;
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    border: 2px dashed #C8CBCE;
+    width: 400px;
+    height: 200px;
+    padding: 20px;
+}
+
+input[type="file"]::file-selector-button {
+    margin-left: 100px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+
+
+#machineStats{
+    visibility: hidden;
+    display: flex;
+    margin:auto;
+    width: 420px;
+    height: 100px;
+    padding-top: 10px;
+    flex-direction: column;
+    font-size: 18px;
+    justify-content: space-around;
+    position: absolute;
+}
+
+#issues{
+    margin: auto;
+    width: 420px;
+    padding-top: 10px;
+}
+
+#species_guess{
+    margin-top: 2px;
+    height: 20px;
+    width: 420px;
+}
+
+#rate{
+    padding-top: 15px;
+    margin:auto;
+    width: 420px;
+}
+
+input[type="number"]{
+    height: 20px;
+}
+
+#descriptionDiv{
+    padding-top: 15px;
+    width: 420px;
+    margin: auto;
+}
+
+#description{
+    padding-top: 2px;
+    width:420px;
+    height: 150px;
+    font-size: 18px;
+    border: 1px solid black; 
+}
+
+#locationBtn{
+    width: 150px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: white;
+    margin-top: 15px;
+}
+
+#location-map{
+    height: 400px;
+    margin: 40px;
+    border-radius: 15px;
+}
+
+#submit{
+    width: 200px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: white;
+    margin-bottom: 100px;
+    font-size: 18px;
+}
