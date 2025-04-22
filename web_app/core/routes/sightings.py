@@ -227,18 +227,25 @@ def find_species(upload_path, output_path):
     models.yolo not accessible
     """
 
-    if not os.path.exists(upload_path) or not os.listdir(upload_path):
-        print("Upload path does not exist or is empty.")
-        return # make sure upload folder exists
+    try:
+        subprocess.run([
+            'python', '-m', 'speciesnet.scripts.run_model',
+            '--folders', upload_path,
+            '--predictions_json', output_path
+        ], check=True)
 
-    subprocess.run([
-        'pipenv', 'run', 'python', '-m', 'speciesnet.scripts.run_model',
-        '--folders', upload_path,
-        '--predictions_json', output_path
-    ], check = True)
+        with open(output_path, 'r', encoding="utf-8") as temp_file:
+            predictions_dict = json.load(temp_file)
 
-    with open(output_path, 'r', encoding="utf-8") as temp_file:
-        predictions_dict = json.load(temp_file)
+    except subprocess.CalledProcessError as e:
+        print("Subprocess failed:", e)
+        return
+    except FileNotFoundError:
+        print("Prediction file not found.")
+        return
+    except json.JSONDecodeError:
+        print("Prediction file not valid JSON.")
+        return
 
     os.remove(output_path) # remove the json to avoid storage issues? possibly not necessary
     for filename in os.listdir(upload_path): # clear ml_temp
