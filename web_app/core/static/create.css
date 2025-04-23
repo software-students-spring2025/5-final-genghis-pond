@@ -1,18 +1,64 @@
+@font-face {
+    font-family: 'Logo'; /*a name to be used later*/
+    src: url('../static/font/YangBagus-DYMX9.ttf'); /*URL to font*/
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    background-color: #D0DDD0;
+
+}
+
+#header{
+    background-image: url('../static/images/bg-index.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    padding: 3vh;
+    margin: 0;
+    height: 70px;
+}
+
+h1{
+    font-weight: 300;
+    color:white;
+    padding: 0;
+    margin:0;
+}
+
+hr{
+    position: relative;
+    top: -33px;
+    z-index: 10;
+}
+
 .center{
     text-align: center;
     justify-content: center;
 }
 
 .backHome{
-    width: 150px;
-    height: 40px;
     border: 1px solid black;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
     position: absolute;
     top: 0px;
+    left: 40px;
+    padding: 8px;
+    background-color: #ffdc40;
+    color: black;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+a:visited{
+    color:black;
+    text-decoration: none !important;
+}
+
+a:link{
+    text-decoration: none;
 }
 
 #photoText{
@@ -32,14 +78,27 @@
     display: flex;
     flex-direction: column;
     border-radius: 15px;
-    border: 2px dashed #C8CBCE;
+    border: 2px dashed #727D73;
     width: 400px;
     height: 200px;
     padding: 20px;
+    position: relative;
+    top: -40px;
+
+}
+
+.formatting{
+    display: flex;
+    justify-content: space-around;
+}
+
+#postTwo{
+    margin-right: 150px;
+
 }
 
 input[type="file"]::file-selector-button {
-    margin-left: 100px;
+    margin-left: 20%;
     justify-content: center;
     align-items: center;
     border-radius: 4px;
@@ -53,18 +112,33 @@ input[type="file"]::file-selector-button {
     transition: background-color 200ms;
   }
 
+label{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
 
 #machineStats{
     visibility: hidden;
     display: flex;
     margin:auto;
-    width: 420px;
     height: 100px;
-    padding-top: 10px;
+    width: 430px;
     flex-direction: column;
     font-size: 18px;
-    justify-content: space-around;
+    justify-content:space-around;
     position: absolute;
+    border-radius: 20px;
+    border: solid 2px #727D73;
+    left:122px;
+    bottom: 50px;
+    padding-left: 10px;
+    background-color: #727D73;
+    color: white;
+}
+
+.machineLabel{
+    padding: 0;
+    margin:0;
 }
 
 #issues{
@@ -77,6 +151,7 @@ input[type="file"]::file-selector-button {
     margin-top: 2px;
     height: 20px;
     width: 420px;
+    border: 2px solid #727D73;
 }
 
 #rate{
@@ -96,32 +171,47 @@ input[type="number"]{
 }
 
 #description{
-    padding-top: 2px;
+    padding-top: 16px;
     width:420px;
     height: 150px;
     font-size: 18px;
-    border: 1px solid black; 
+    border: 2px solid #727D73; 
+    border-radius: 15px;
+    font-family: "Times new Roman";
+    padding: 10px;
 }
 
 #locationBtn{
-    width: 150px;
-    height: 40px;
+    position: relative;
+    left: 425px;
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
     border: 1px solid black;
-    background-color: white;
     margin-top: 15px;
+    background-color: #ffdc40;
+    color: black;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 #location-map{
     height: 400px;
     margin: 40px;
     border-radius: 15px;
+    border: 3px solid #727D73;
 }
 
 #submit{
-    width: 200px;
-    height: 40px;
+    width: 210px;
+    height: 50px;
     border: 1px solid black;
-    background-color: white;
     margin-bottom: 100px;
     font-size: 18px;
+    background-color: #ffdc40;
+    color: black;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
