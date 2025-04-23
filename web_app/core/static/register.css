@@ -1,0 +1,102 @@
+body {
+    background-image: url('../static/images/register-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-color: black;
+}
+
+.loginbox {
+    background-color: #698a5a;
+    width: 52vw;
+    height: 110vh;
+    margin: -2vh;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    padding-top: 10vh;
+}
+
+.ourClasses {
+    width: 30vw;
+    height: 5vh;
+    margin-bottom: 3vh;
+    border-radius: 10px;
+    font-size: 2vh;
+    padding-left: 2vh;
+}
+
+.formTitle {
+    display: flex;
+    font-size: 3vh;
+    margin-bottom: -2vh;
+    align-self: flex-start;
+    color: white;
+    margin-left: 8vw;
+    border-color: white;
+}
+
+.info {
+    margin-top: 5vh;
+}
+
+.loginTitle {
+    font-size: 10vh;
+    margin-bottom: 10vh;
+    color: white;
+    width: 45vw;
+}
+
+.loginSubTitle {
+    font-size: 6vh;
+    margin-bottom: 3vh;
+    color: white;
+    width: 45vw;
+    font-weight: bold;
+}
+
+.remember {
+    font-size: 1.3vw;
+    color: white;
+}
+.remTitle {
+    margin-right: 4vw;
+}
+.remBox {
+    width: 3vw;
+}
+
+.submit {
+    margin-top: 5vh;
+    width: 15vw;
+    height: 7vh;
+    font-size: 2vw;
+    background-color: #49633d;
+    border-color: #49633d;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid #49633d;
+    width: 6vw;
+    font-size: 3vh;
+    height: 5vh;
+    background-color: #49633d;
+    color: white;
+    margin-top: -3vh;
+    margin-bottom: 10vh;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
