@@ -118,7 +118,6 @@ label{
 }
 
 #machineStats{
-    visibility: hidden;
     display: flex;
     margin:auto;
     height: 100px;
