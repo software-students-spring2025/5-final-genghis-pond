@@ -39,6 +39,23 @@ class Sighting:
         )
         c = 2 * asin(sqrt(a))
         return round(radius * c, 2)
+    
+    def get_votes(self):
+        all_votes = list(mongo.db.votes.find({"sighting_id": self.id}))
+        if len(all_votes) == 0:
+            return None
+        species_votes = {}
+        vote_num = len(all_votes)
+        vote_sum = 0 # sum of confidence weighted votes
+        for vote in all_votes:
+            if vote.get('species_guess') not in species_votes:
+                species_votes[vote.get('species_guess')] = 0
+            species_votes[vote.get('species_guess')] += vote.get('confidence_level', 1)
+            vote_sum += vote.get('confidence_level', 1)
+        sorted_species = {k: round(100 * float(v)/vote_sum, 2) for k, v in sorted(species_votes.items(), key=lambda item: item[1], reverse=True)}
+        return sorted_species, vote_num
+
+
 
     @classmethod
     def get_by_id(cls, sighting_id):
