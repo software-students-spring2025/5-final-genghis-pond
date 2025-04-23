@@ -115,9 +115,13 @@ def view_sighting(sighting_id):
     if not sighting:
         flash("Sighting not found", "danger")
         return redirect(url_for("sightings.list_view"))
+    
+    species_votes = sighting.get_votes()[0]
+    vote_num = sighting.get_votes()[1]
+
     return rt(
         "sightings/view.html", title=f"{sighting.species} Sighting", sighting=sighting,
-        form=form
+        form=form, species_votes=species_votes, vote_num=vote_num
     )
 
 @sightings.route("/sightings/<sighting_id>/submit_vote", methods=["POST"])
@@ -223,10 +227,11 @@ def predict_species():
     file = request.files['photo']
     if file.filename == '':
         return {'error': 'No selected file'}, 400
-
+    
+    random_hex = secrets.token_hex(8)
     save_temp_image(file)
     upload_path = os.path.join(current_app.root_path, "static/uploads/ml_temp")
-    output_path = os.path.join(current_app.root_path, "outputs/predictions.json")
+    output_path = os.path.join(current_app.root_path, f"outputs/predictions{random_hex}.json")
     prediction = find_species(upload_path, output_path)
     if prediction:
         species_name, score, confidence = prediction
