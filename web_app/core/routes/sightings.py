@@ -158,13 +158,10 @@ def create_sighting():
         if form.photo.data:
             image_file = save_image(form.photo.data)
         # create sighting object
-        species_votes = {}
 
         ml_prediction = form.machine_prediction.data
         ml_confidence = form.machine_confidence.data
         
-        if ml_prediction and ml_confidence:
-            species_votes[ml_prediction] = int(ml_confidence)
         print("ML PREDICTION: ", ml_prediction)
 
         print("ML PREDICTION: ", ml_confidence)
@@ -174,27 +171,8 @@ def create_sighting():
         print("user PREDICTION: ", user_prediction)
         print("user CONFIDENCE: ", user_confidence)
 
-        if user_prediction and user_confidence:
-            species_votes[user_prediction] = int(user_confidence)
-
-        if ml_prediction and user_prediction: # initial vote weigh user guess higher
-            if ml_prediction != user_prediction:
-                species_votes[ml_prediction] = int(ml_confidence) # don't doublecount initial vote
-
-            if ml_confidence > user_confidence:
-                species_vote = ml_prediction
-            else:
-                species_vote = user_prediction
-        elif ml_prediction:
-            species_vote = ml_prediction
-        elif user_prediction:
-            species_vote = user_prediction
-        else:
-            species_votes["unknown"] = 1 # default to 1 for low confidence
-            species_vote = 'unknown'
-
         sighting = Sighting(
-            species=species_vote,
+            species='unknown',
             description=form.description.data,
             date_posted=datetime.utcnow(),
             location_name=form.location_name.data,
@@ -202,7 +180,6 @@ def create_sighting():
             longitude=form.longitude.data,
             user_id=current_user.id,
             image_file=image_file,
-            species_votes=species_votes,
         )
         sighting.save()
 

@@ -20,7 +20,6 @@ class Sighting:
         self.description = kwargs.get("description")
         self.image_file = kwargs.get("image_file")
         self.date_posted = kwargs.get("date_posted")
-        self.species_votes = kwargs.get("species_votes")
 
     @property
     def id(self):
@@ -229,7 +228,6 @@ class Sighting:
             "user_id": self.user_id,
             "image_file": self.image_file,
             "date_posted": self.date_posted,
-            "species_votes": self.species_votes,
             "location": {
                 "type": "Point",
                 "coordinates": [self.longitude, self.latitude],
