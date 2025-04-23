@@ -20,7 +20,6 @@ class Sighting:
         self.description = kwargs.get("description")
         self.image_file = kwargs.get("image_file")
         self.date_posted = kwargs.get("date_posted")
-        self.species_votes = kwargs.get("species_votes")
 
     @property
     def id(self):
