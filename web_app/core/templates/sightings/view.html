@@ -43,6 +43,20 @@
     <button type="submit">Submit Correction</button>
 </form>
 
+{% if species_votes %}
+    <h3>See what {{vote_num}} others have voted this specimen to be!</h3>
+    <ul>
+        {% for species in species_votes %}
+            <li>
+                Suggested species: <strong>{{ species }}</strong><br>
+                Percentage confidence-weighted votes: {{ species_votes[species] }}%
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No one has voted on this species yet. You can be the first!</p>
+{% endif %}
+
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script>
     const map = L.map('sighting-map').setView([{{ sighting.latitude }}, {{ sighting.longitude }}], 13);
