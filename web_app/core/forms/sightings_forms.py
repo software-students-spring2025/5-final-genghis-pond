@@ -46,3 +46,8 @@ class SightingForm(FlaskForm):
                 Optional(),
                 FileAllowed(["jpg", "jpeg", "png", "heic", "heif"]),
             ]
+
+class ViewsForm(FlaskForm):
+    species_guess = StringField("Species doesn't look right? Enter a correction here:", validators=[Optional(), Length(min=2, max=50)])
+    correction_confidence = IntegerField("Rate confidence in your correction (1 (low) -5 (high))", validators=[Optional(), NumberRange(min=1, max=5)])
+    submit = SubmitField("Submit")

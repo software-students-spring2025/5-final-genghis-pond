@@ -28,7 +28,20 @@
          style="max-width: 100%; max-height: 500px;">
 {% endif %}
 
-<div id="sighting-map" style="height: 300px; margin-top: 20px;"></div>
+<form method="POST" action="{{ url_for('sightings.submit_vote', sighting_id=sighting._id) }}">
+    {{ form.hidden_tag() }}
+    <div id="issues">
+        <label>Species doesn't look right?<br>Enter a correction here:</label><br>
+        {{ form.species_guess(id="species_guess") }}<br>
+    </div>
+
+    <div id="rate">
+        <label>Rate confidence in your correction (1-5):</label><br>
+        {{ form.correction_confidence(id="correction_confidence", min=1, max=5) }}<br>
+    </div>
+
+    <button type="submit">Submit Correction</button>
+</form>
 
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script>
@@ -38,6 +51,105 @@
     }).addTo(map);
     L.marker([{{ sighting.latitude }}, {{ sighting.longitude }}]).addTo(map)
         .bindPopup("{{ sighting.species }}").openPopup();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script> 
+<script>
+document.addEventListener('DOMContentLoaded', function() { // also dk about this JS -- anna
+    const speciesGuessInput = document.getElementById('species_guess');
+    const correctionConfidenceInput = document.getElementById('correction_confidence');
+
+    let validSpecies = [];
+    let fuse = null;
+
+    console.log('Sending photo for prediction');
+    // valid species from full_data.tsv "common_name" column
+    fetch('{{ url_for("sightings.species_names") }}')
+        .then(response => response.json())
+        .then(data => {
+            validSpecies = data;
+            fuse = new Fuse(validSpecies, {
+                includeScore: true,
+                threshold: 0.4,
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching species list:', error);
+        });
+
+    let suggestionBox = null;
+
+    speciesGuessInput.addEventListener('input', function() {
+        const guess = speciesGuessInput.value.trim();
+        correctionConfidenceInput.disabled = guess === '';
+
+        if (!guess || !fuse) { // fuzzy search for nearest valid name from full_data.tsv
+            if (suggestionBox) suggestionBox.remove();
+            return;
+        }
+
+        const results = fuse.search(guess, { limit: 5 });
+        if (results.length > 0) {
+            showSuggestions(results.map(r => r.item));
+        } else {
+            if (suggestionBox) suggestionBox.remove();
+        }
+    });
+
+    // dropdown suggestion for autocomplete valid name
+    function showSuggestions(suggestions) {
+        if (suggestionBox) suggestionBox.remove();
+
+        suggestionBox = document.createElement('div');
+        suggestionBox.style.position = 'absolute';
+        suggestionBox.style.border = '1px solid #ccc';
+        suggestionBox.style.background = 'white';
+        suggestionBox.style.zIndex = 1000;
+        suggestionBox.style.width = speciesGuessInput.offsetWidth + 'px';
+        
+        suggestions.forEach(function(s) {
+            const item = document.createElement('div');
+            item.style.padding = '5px';
+            item.style.cursor = 'pointer';
+            item.innerText = s;
+            item.addEventListener('click', function() {
+                speciesGuessInput.value = s;
+                suggestionBox.remove();
+                correctionConfidenceInput.disabled = false;
+            });
+            suggestionBox.appendChild(item);
+        });
+
+        const rect = speciesGuessInput.getBoundingClientRect();
+        suggestionBox.style.left = rect.left + window.scrollX + 'px';
+        suggestionBox.style.top = rect.bottom + window.scrollY + 'px';
+        
+        document.body.appendChild(suggestionBox);
+    }
+
+    document.addEventListener('click', function(event) {
+        if (suggestionBox && !speciesGuessInput.contains(event.target) && !suggestionBox.contains(event.target)) {
+            suggestionBox.remove();
+        }
+
+    function toggleConfidenceRequirement() {
+        if (speciesGuessInput.value.trim().length > 0) {
+            correctionConfidenceInput.disabled = false;
+            correctionConfidenceInput.required = true;
+        } else {
+            correctionConfidenceInput.disabled = true;
+            correctionConfidenceInput.required = false;
+            correctionConfidenceInput.value = ''; // optional: clears value if disabled
+        }
+    }
+
+    // Listen for typing changes
+    speciesGuessInput.addEventListener('input', toggleConfidenceRequirement);
+
+    // Make sure it's set correctly on page load too
+    toggleConfidenceRequirement();
+    });
+});
 </script>
 
 </body>
