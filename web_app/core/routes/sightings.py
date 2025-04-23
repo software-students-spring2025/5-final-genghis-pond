@@ -14,6 +14,8 @@ from flask import (
 from flask_login import current_user, login_required
 from core.models.sightings import Sighting
 from core.forms.sightings_forms import SightingForm
+from core.forms.sightings_forms import ViewsForm
+from core.models.vote import Vote
 from core import csrf
 from math import radians, cos, sin, asin, sqrt
 from datetime import datetime
@@ -108,13 +110,41 @@ def sightings_data():
 # view a single post/sighting
 @sightings.route("/sightings/<sighting_id>")
 def view_sighting(sighting_id):
+    form = ViewsForm()
     sighting = Sighting.get_by_id(sighting_id)
     if not sighting:
         flash("Sighting not found", "danger")
         return redirect(url_for("sightings.list_view"))
     return rt(
-        "sightings/view.html", title=f"{sighting.species} Sighting", sighting=sighting
+        "sightings/view.html", title=f"{sighting.species} Sighting", sighting=sighting,
+        form=form
     )
+
+@sightings.route("/sightings/<sighting_id>/submit_vote", methods=["POST"])
+@login_required
+def submit_vote(sighting_id):
+    sighting = Sighting.get_by_id(sighting_id)
+    if not sighting:
+        flash("Sighting not found", "danger")
+        return redirect(url_for("sightings.list_view"))
+    
+    species_guess = request.form.get('species_guess')
+    correction_confidence = request.form.get('correction_confidence')
+
+    if not species_guess:
+        flash("Please enter a correction species", "warning")
+        return redirect(url_for("sightings.view_sighting", sighting_id=sighting_id))
+
+    vote = Vote(
+        species_guess=species_guess,
+        sighting_id=sighting_id,
+        confidence_level=int(correction_confidence) if correction_confidence else 1,
+        user_id=current_user.id
+    )
+    vote.save_vote()
+
+    flash("Thanks for your correction!", "success")
+    return redirect(url_for("sightings.view_sighting", sighting_id=sighting_id))
 
 
 @sightings.route("/sightings/new", methods=["GET", "POST"])
@@ -175,6 +205,25 @@ def create_sighting():
             species_votes=species_votes,
         )
         sighting.save()
+
+        if user_prediction and user_confidence:
+            user_vote = Vote(
+                species_guess = user_prediction,
+                sighting_id = sighting.id,
+                user_id = sighting.user_id,
+                confidence_level = user_confidence
+            )
+            user_vote.save_vote()
+
+        if ml_prediction and ml_confidence:
+            ml_vote = Vote(
+                species_guess = ml_prediction,
+                sighting_id = sighting.id,
+                user_id = 'speciesnet', # i guess speciesnet gets one vote
+                confidence_level = ml_confidence
+            )
+            ml_vote.save_vote()
+
         flash("Your wildlife sighting has been posted!", "success")
         return redirect(url_for("sightings.view_sighting", sighting_id=sighting.id))
     return rt(
