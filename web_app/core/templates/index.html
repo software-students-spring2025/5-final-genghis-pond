@@ -3,33 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link rel="stylesheet" href="../static/index.css">
+
+    </script>
 </head>
 <body>
-    <h1>App Name</h1>
-    <p>Report and discover wildlife sightings in your area!</p>
 
-    {% if not current_user.is_authenticated %}
-    <a href="{{ url_for('main.about') }}">About This Project</a>
-    <a href="{{ url_for('auth.register') }}">Sign Up</a>
-    <a href="{{ url_for('auth.login') }}">Login</a>
+   {% if not current_user.is_authenticated %}
+    <div class="header">
+        <div class="title">
+            Genghis Pond
+        </div>
+        <a href="{{ url_for('main.about') }}">
+            <div class="about">
+                About Us
+            </div>
+        </a>
+        <a href="{{ url_for('auth.register') }}">
+            <div class="signup">
+                Join the Community
+            </div>
+        </a>
+        <a href="{{ url_for('auth.login') }}">
+            <div class="login">
+                Login
+            </div>
+        </a>
+    </div>
+
   {% else %}
-    <a href="{{ url_for('main.about') }}">About This Project</a>
-    <a href="{{ url_for('user.account') }}">My Profile</a>
-    <a href="{{ url_for('auth.logout') }}">Log Out</a>
+  <div class="header">
+    <div class="title">
+        Genghis Pond
+    </div>
+    <a href="{{ url_for('main.about') }}">
+        <div class="about">
+            About Us
+        </div>
+    </a>
+    <a href="{{ url_for('user.account') }}">
+        <div class="signup">
+            My Profile
+        </div>
+    </a>
+    <a href="{{ url_for('auth.logout') }}">
+        <div class="login">
+            Log Out
+        </div>
+    </a>
+   </div>
   {% endif %}
 
 
-    <hr>
-    <ul>
-        {% if not current_user.is_authenticated %}
-            <a href="{{ url_for('auth.register') }}">Join the Community</a>
-            <p><a href="{{ url_for('sightings.list_view') }}">Browse Sightings</a></p>
-            <p><a href="{{ url_for('sightings.map_view') }}">Explore the Map</a></p>
-        {% else %}
-            <p><a href="{{ url_for('sightings.list_view') }}">Browse Sightings</a></p>
-            <p><a href="{{ url_for('sightings.map_view') }}">Explore the Map</a></p>
-            <p><a href="{{ url_for('sightings.create_sighting') }}">Report a Sighting</a></p>
-        {% endif %}
-    </ul>
+<hr>
+<div class="subtitle">
+    Discover Wildlife
+</div>
+
+<div class="subtext">
+    Discover something new today! Upload and report any wildlife sightings to find out what it might be
+</div>
+
+{% if not current_user.is_authenticated %}
+    <div class="extra">
+        <a href="{{ url_for('sightings.list_view') }}">
+            <div class="sightings">
+                Sightings
+            </div>
+        </a>    
+        <a href="{{ url_for('sightings.map_view') }}">
+            <div class="map">
+                View Map
+            </div>
+        </a>
+        <a href="{{ url_for('auth.register') }}">
+            <div class="upload">
+                Join Us
+            </div>
+        </a>
+    </div>
+{% else %}
+    <div class="extra">
+        <a href="{{ url_for('sightings.list_view') }}">
+            <div class="sightings">
+                Sightings
+            </div>
+        </a>    
+        <a href="{{ url_for('sightings.map_view') }}">
+            <div class="map">
+                View Map
+            </div>
+        </a>
+        <a href="{{ url_for('sightings.create_sighting') }}">
+            <div class="upload">
+                Upload
+            </div>
+        </a>
+    </div>
+{% endif %}
 </body>
 </html>
