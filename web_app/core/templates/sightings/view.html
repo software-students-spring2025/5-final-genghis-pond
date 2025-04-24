@@ -8,62 +8,89 @@
 </head>
 <body>
 
-<p>
-  <a href="{{ url_for('main.home') }}">← Home</a> |
-  <a href="{{ url_for('sightings.list_view') }}">View sightings-- List</a> |
-  <a href="{{ url_for('sightings.map_view') }}">View Sightings-- Map</a>
-</p>
+<header>
+    <a class = "Logo" href="{{ url_for('main.home') }}">
+        Ghengis Pond
+    </a> 
+    <a href="{{ url_for('sightings.list_view') }}">
+        Sightings List
+    </a> 
+    <a href="{{ url_for('sightings.map_view') }}">
+        Map
+    </a>
+</header>
+<hr>
 
+<div class = "sighting">
+    <div class = "partOne">
+        <h2 class = "upperCase">{{ sighting.species }}</h2>
+        {% if sighting.image_file %}
+            <img class = "animalImg" src="{{ url_for('static', filename='uploads/' + sighting.image_file) }}" alt="Sighting image">
+        {% endif %}
+        <p class = "fontSize"><strong>Date Taken:</strong> {{ sighting.date_posted.strftime('%Y-%m-%d') }}</p>
+        {% if sighting.description %}
+            <p class = "fontSize" id = "description"><strong>Description:</strong> {{ sighting.description }}</p>
+        {% endif %}
+    </div>
+    <div id="sighting-map"></div>
+    
+</div>
 
-<h2>{{ sighting.species }}</h2>
-<p><strong>Location:</strong> {{ "Should we make the users manually enter a location name? or just have the map? idk" }}</p>
-<p><strong>Date:</strong> {{ sighting.date_posted.strftime('%Y-%m-%d') }}</p>
-
-{% if sighting.description %}
-    <p><strong>Description:</strong> {{ sighting.description }}</p>
-{% endif %}
-
-{% if sighting.image_file %}
-    <img src="{{ url_for('static', filename='uploads/' + sighting.image_file) }}" alt="Sighting image"
-         style="max-width: 100%; max-height: 500px;">
-{% endif %}
 
 <form method="POST" action="{{ url_for('sightings.submit_vote', sighting_id=sighting._id) }}">
     {{ form.hidden_tag() }}
-    <div id="issues">
-        <label>Species doesn't look right?<br>Enter a correction here:</label><br>
-        {{ form.species_guess(id="species_guess") }}<br>
+    <div>
+        <h2>Species doesn't look right?</h2>
     </div>
 
-    <div id="rate">
-        <label>Rate confidence in your correction (1-5):</label><br>
-        {{ form.correction_confidence(id="correction_confidence", min=1, max=5) }}<br>
-    </div>
+    <div class = "formatForm">
+        <div>
+            <div id="issues">
+                <label>Enter a correction here:</label><br>
+                {{ form.species_guess(id="species_guess") }}<br>
+            </div>
 
-    <button type="submit">Submit Correction</button>
+            <div id="rate">
+                <label>Rate confidence in your correction (1-5):</label><br>
+                {{ form.correction_confidence(id="correction_confidence", min=1, max=5) }}<br>
+            </div>
+        </div>
+
+        <button type="submit" id = "submit">Submit Correction</button>
+    </div>
 </form>
 
 {% if species_votes %}
-    <h3>See what {{vote_num}} others have voted this specimen to be!</h3>
-    <ul>
-        {% for species in species_votes %}
-            <li>
-                Suggested species: <strong>{{ species }}</strong><br>
-                Percentage confidence-weighted votes: {{ species_votes[species] }}%
-            </li>
-        {% endfor %}
-    </ul>
+    <div class = "bottomPad">
+        <div class = "seeVotes">
+            <h3>See what {{vote_num}} others have voted this specimen to be!</h3>
+            <ul>
+                {% for species in species_votes %}
+                    <li>
+                        Suggested species: <strong class = "uppercase">{{ species }}</strong><br>
+                        Percentage confidence-weighted votes: {{ species_votes[species] }}%
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
 {% else %}
-    <p>No one has voted on this species yet. You can be the first!</p>
+    <div class= "bottomPad">
+        <div class = "seeVotes">
+            <p>No one has voted on this species yet. You can be the first!</p>
+        </div>
+    </div>
+    
 {% endif %}
 
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script>
-    const map = L.map('sighting-map').setView([{{ sighting.latitude }}, {{ sighting.longitude }}], 13);
+    const map = L.map('sighting-map').setView(["{{sighting.latitude }}", "{{ sighting.longitude }}"], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-    L.marker([{{ sighting.latitude }}, {{ sighting.longitude }}]).addTo(map)
+    L.marker(["{{ sighting.latitude }}", "{{ sighting.longitude }}"]).addTo(map)
         .bindPopup("{{ sighting.species }}").openPopup();
 </script>
 

@@ -8,10 +8,10 @@
 </head>
 <body>
 <div id = "header">
-    <h1 class = "center">{{ legend }}</h1>
+    <a class = "backHome" href="{{ url_for('main.home') }}"><p>Ghenghis Pond</p></a>
+    <h1>{{ legend }}</h1>
 </div>
 <hr>
-<p class = "backHome"><a href="{{ url_for('main.home') }}">← Back to Home</a></p>
 <form method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     {{ form.latitude(id="latitude", type="hidden") }}
@@ -37,29 +37,41 @@
                     <span style="color: red;">{{ error }}</span><br>
                 {% endfor %}
             </div>
+            <div id = "machineStats">
+                <div>
+                    <label class = "machineLabel">Machine Prediction:</label>
+                    <div id="machine_prediction_display"></div>
+                </div>
+                <div>
+                    <label class = "machineLabel">Machine Confidence:</label>
+                    <div id="machine_confidence_display"></div>
+                </div>
+            </div>
         </div>
     {% else %}
         <div class = "formatting">
-            <div id = "formPhoto">
-                <div id = "photoText">{{ form.photo.label }}</div>
-                <img id = "uploadIcon" src = "../../static/images/uploadIcon.svg">
-                {{ form.photo }}<br>
-                {% for error in form.photo.errors %}
-                    <span style="color: red;">{{ error }}</span><br>
-                {% endfor %}
+            <div class = "partOne">
+                <div id = "formPhoto">
+                    <div id = "photoText">{{ form.photo.label }}</div>
+                    <img id = "uploadIcon" src = "../../static/images/uploadIcon.svg">
+                    {{ form.photo }}<br>
+                    {% for error in form.photo.errors %}
+                        <span style="color: red;">{{ error }}</span><br>
+                    {% endfor %}
+                </div>
+                <div id = "machineStats">
+                    <div>
+                        <label class = "machineLabel">Machine Prediction:</label>
+                        <div id="machine_prediction_display"></div>
+                    </div>
+                    <div>
+                        <label class = "machineLabel">Machine Confidence:</label>
+                        <div id="machine_confidence_display"></div>
+                    </div>
+                </div>
             </div>
     {% endif %}
     <div id = "postTwo">
-        <div id = "machineStats">
-            <div>
-                <label class = "machineLabel">Machine Prediction:</label>
-                <div id="machine_prediction_display"></div>
-            </div>
-            <div>
-                <label class = "machineLabel">Machine Confidence:</label>
-                <div id="machine_confidence_display"></div>
-            </div>
-        </div>
 
         <div id = "issues">
             <label>Issues with the automatic classification?<br>Enter your species guess here:</label><br>
@@ -81,12 +93,13 @@
                 <span style="color: red;">{{ error }}</span><br>
             {% endfor %}
         </div>
-    </div>
-    </div>
 
         <div class = "center">
             <button id ="locationBtn" type="button" onclick="useMyLocation()">Use My Current Location</button>
         </div>
+    </div>
+    </div>
+
         <div id="location-map"></div>
         <div class = "center">
             {{ form.submit(value=legend) }}
