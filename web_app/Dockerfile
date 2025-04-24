@@ -12,4 +12,4 @@ RUN chmod +x /wait-for-it.sh
 
 COPY . .
 
-CMD ["/wait-for-it.sh", "mongodb:27017", "--", "python", "run.py"]
+CMD ["/wait-for-it.sh", "mongodb:27017", "--", "gunicorn", "-c", "gunicorn_config.py", "wsgi:application"]

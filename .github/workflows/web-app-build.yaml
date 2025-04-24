@@ -1,0 +1,44 @@
+name: Genghis Khan CI/CD
+on: [pull_request, push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+    strategy:
+      matrix:
+        python: ["3.11"]
+    steps:
+      - name: Checkout Repo to Actions Runner
+        uses: actions/checkout@v4
+      - name: Install Python 
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Setup Containers with Docker Compose
+        run: |
+          docker compose up -d --build
+      - name: Wait for services to be ready
+        run: sleep 10
+      - name: Install pipenv
+        run: pip install pipenv
+      - name: Test Web App
+        working-directory: web_app
+        run: |
+          pipenv install pytest
+          pipenv --venv
+          pipenv install
+          pipenv run python -m pytest
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to DigitalOcean App Platform
+        uses: digitalocean/app-action@v1
+        with:
+          app-name: final-genghis-pond-web-app
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        
