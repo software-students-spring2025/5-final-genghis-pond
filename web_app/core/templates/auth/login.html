@@ -3,31 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="../../static/login.css">
 </head>
 <body>
-<h2>Login</h2>
-<form method="POST" action="{{ url_for('auth.login') }}">
-    {{ form.hidden_tag() }}
-    <div>
-        {{ form.email.label }}<br>
-        {{ form.email }}<br>
-        {% for error in form.email.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
+
+    <div class="loginbox">
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            <a href="{{ url_for('main.home') }}">
+                <div class="back">Back</div>
+            </a>
+            <div class="info">
+                <div class="loginTitle">
+                    Welcome Back!
+                </div>
+                <div class="loginSubTitle">
+                    Login
+                </div>
+
+                {{ form.hidden_tag() }}
+                <div class="email">
+                    {{ form.email.label(class_="formTitle") }}<br>
+                    {{ form.email(class_="ourClasses") }}<br>
+                    {% for error in form.email.errors %}
+                        <span style="color: red;">{{ error }}</span><br>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.password.label(class_="formTitle") }}<br>
+                    {{ form.password(class_="ourClasses") }}<br>
+                    {% for error in form.password.errors %}
+                        <span style="color: red;">{{ error }}</span><br>
+                    {% endfor %}
+                </div>
+                <div class="remember">
+                    {{ form.remember(class_='remBox') }} {{ form.remember.label(class_="remTitle")}}
+                </div>
+                <div>
+                    {{ form.submit (class_="submit")}}
+                </div>
+            </div>
+        </form>
     </div>
-    <div>
-        {{ form.password.label }}<br>
-        {{ form.password }}<br>
-        {% for error in form.password.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
-    <div>
-        {{ form.remember() }} {{ form.remember.label }}
-    </div>
-    <div>
-        {{ form.submit }}
-    </div>
-</form>
+
+
 </body>
 </html>
