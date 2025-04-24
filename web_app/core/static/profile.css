@@ -1,0 +1,184 @@
+.back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid #ffdc40;
+    width: 6vw;
+    font-size: 3vh;
+    height: 5vh;
+    background-color: #ffdc40;
+    color: black;
+    border-radius: 10px;
+    margin-top: 8vh;
+    margin-left: 5vh;
+    text-align: center;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Logo'; /*a name to be used later*/
+    src: url('../static/font/YangBagus-DYMX9.ttf'); /*URL to font*/
+}
+
+.title {
+    margin-top: 5vh;
+    font-size: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    width: 30vw;
+    align-self: center;
+    height: 15vh;
+    justify-self: center;
+    border-radius: 10px;
+   font-weight: bold;
+}
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-image: url('../static/images/profile-bg.jpg');
+}
+
+.loginbox {
+    width: 52vw;
+    height: 54vh;
+    margin: -2vh;
+    margin-top: 5vh;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    align-content: center;
+    padding-top: 10vh;
+    background-color: #49633d;
+    border-radius: 10px;
+}
+
+.ourClasses {
+    width: 30vw;
+    height: 5vh;
+    margin-bottom: 3vh;
+    border-radius: 10px;
+    font-size: 2vh;
+    padding-left: 2vh;
+}
+
+.formTitle {
+    display: flex;
+    font-size: 3vh;
+    margin-bottom: -2vh;
+    align-self: flex-start;
+    color: white;
+    border-color: white;
+}
+
+.info {
+    margin-top: 5vh;
+}
+
+.loginTitle {
+    font-size: 10vh;
+    margin-bottom: 10vh;
+    color: white;
+    width: 45vw;
+}
+
+.loginSubTitle {
+    font-size: 6vh;
+    margin-bottom: 3vh;
+    color: white;
+    width: 45vw;
+    font-weight: bold;
+}
+
+.remember {
+    font-size: 1.3vw;
+    color: white;
+}
+.remTitle {
+    margin-right: 4vw;
+}
+.remBox {
+    width: 3vw;
+}
+
+.submit {
+    margin-top: 5vh;
+    width: 15vw;
+    height: 7vh;
+    font-size: 2vw;
+    background-color: #ffdc40;
+    border-color: #ffdc40;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.change {
+    justify-content: center;
+    align-items: center;
+    font-size: 5vh;
+    margin-bottom: 3vh;
+    color: white;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.sightTitle {
+    font-size: 3vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+.sightBox {
+    width: 52vw;
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    align-content: center;
+    padding-top: 10vh;
+    background-color: #49633d;
+    border-radius: 10px;
+    flex-direction: column;
+    margin-bottom: 30vh;
+}
+
+.noSight {
+    margin: 3vh;
+    margin-top: 3vh;
+    margin-bottom: 10vh;
+    font-size: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding-bottom: 3vh;
+}
+
+.species {
+    margin: 3vh;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+    font-size: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding-bottom: 3vh;
+}
