@@ -1,0 +1,154 @@
+body {
+    background-image: url('../static/images/bg-index.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    height: 110vh;
+    color: white;
+    padding-bottom: 50px;
+}
+
+@font-face {
+    font-family: 'Logo'; /*a name to be used later*/
+    src: url('../static/font/YangBagus-DYMX9.ttf'); /*URL to font*/
+}
+.Logo {
+    font-family: 'Logo';
+    font-size: 2vw;
+}
+
+header {
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.7vw;
+    padding: 3vh;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.animalImg{
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+    margin: auto;
+    object-fit: cover;
+}
+
+#sighting-map{
+    width: 50%;
+    height: 300px;
+    border-radius: 20px;
+    margin-top: 68px;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    border: 2px solid #80c380;
+}
+
+hr{
+    margin-bottom: 30px;
+}
+
+.partOne{
+    width: 40%;
+    text-align: center;
+}
+
+.upperCase{
+    text-transform: capitalize;
+}
+
+.fontSize{
+    font-size: 18px;
+}
+
+.sighting{
+    margin:auto;
+    width: 80%;
+    height: 500px;
+    padding: 20px;
+    padding-top: 20px;
+    display:flex;
+    justify-content: space-around;
+    border: 2px solid #D5E5D5;
+    border-radius: 20px;
+    background-color: rgba(165, 182, 141, 0.8);
+}
+
+#description{
+    width: 100%;
+}
+
+form{
+    margin:auto;
+    width: 80%;
+    height: 180px;
+    padding: 20px;
+    justify-content: space-around;
+    align-items: flex-end;
+    border: 2px solid #D5E5D5;
+    border-radius: 20px;
+    background-color: rgba(165, 182, 141, 0.8);
+    margin-top: 50px;
+}
+
+.seeVotes{
+    margin:auto;
+    width: 80%;
+    height: auto;
+    padding: 20px;
+    justify-content: space-around;
+    border: 2px solid #D5E5D5;
+    border-radius: 20px;
+    background-color: rgba(165, 182, 141, 0.8);
+    margin-top: 50px;
+    font-size: 18px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.bottomPad{
+    padding-bottom: 50px;
+}
+
+.formatForm{
+    display: flex;
+    justify-content: space-between;
+}
+
+h2{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+label{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 18px;
+}
+
+#species_guess{
+    margin-top: 2px;
+    height: 20px;
+    width: 420px;
+    border: 2px solid #727D73;
+}
+
+#submit{
+    width: 180px;
+    height: 40px;
+    border: 1px solid black;
+    font-size: 18px;
+    background-color: #ffdc40;
+    color: black;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 50px;
+}
+
+
