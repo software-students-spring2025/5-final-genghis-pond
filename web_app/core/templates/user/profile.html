@@ -3,52 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>My Profile</title>
+    <link rel="stylesheet" href="../../static/profile.css">
 </head>
 <body>
-<p><a href="{{ url_for('main.home') }}">← Back to Home</a></p>
-<h2>My Profile</h2>
+<a href="{{ url_for('main.home') }}">
+    <div class="back">Back</div>
+</a>
+<div class="title">My Profile</div>
+<hr>
+<div class="loginbox"> 
+    <form method="POST" action="{{ url_for('user.account') }}">
+        {{ form.hidden_tag() }}
+        <div class="change">Edit Your Profile</div>
+        <div>
+            {{ form.username.label(class_="formTitle") }}<br>
+            {{ form.username (class_="ourClasses")}}<br>
+            {% for error in form.username.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
 
-<form method="POST" action="{{ url_for('user.account') }}">
-    {{ form.hidden_tag() }}
+        <div>
+            {{ form.email.label(class_="formTitle") }}<br>
+            {{ form.email(class_="ourClasses") }}<br>
+            {% for error in form.email.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
 
-    <div>
-        {{ form.username.label }}<br>
-        {{ form.username }}<br>
-        {% for error in form.username.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
+        <div>
+            {{ form.submit(class_="submit") }}
+        </div>
+    </form>
+</div>
 
-    <div>
-        {{ form.email.label }}<br>
-        {{ form.email }}<br>
-        {% for error in form.email.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
-
-    <div>
-        {{ form.submit }}
-    </div>
-</form>
-
-<h3>My Sightings</h3>
-{% if sightings %}
-    <ul>
-        {% for sighting in sightings %}
-            <li>
-                <a href="{{ url_for('sightings.view_sighting', sighting_id=sighting.id) }}">
-                    {{ sighting.species }} — {{ sighting.location_name }} ({{ sighting.date_posted.strftime('%Y-%m-%d') }})
-                </a>
-                |
-                <a href="{{ url_for('sightings.edit_sighting', sighting_id=sighting.id) }}">Edit</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No sightings yet.</p>
-{% endif %}
-
+<div class="sightBox">
+    <div class="sightTitle">My Sightings</div>
+    {% if sightings %}
+            {% for sighting in sightings %}
+                <div class="species">
+                    <a href="{{ url_for('sightings.view_sighting', sighting_id=sighting.id) }}">
+                        {{ sighting.species }} — {{ sighting.location_name }} ({{ sighting.date_posted.strftime('%Y-%m-%d') }})
+                    </a>
+                    <a href="{{ url_for('sightings.edit_sighting', sighting_id=sighting.id) }}">Edit</a>
+                </div>
+               
+            {% endfor %}
+        
+    {% else %}
+        <div class="noSight">No sightings yet.</div>
+    {% endif %}
+</div>
 
 </body>
 </html>
