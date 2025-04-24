@@ -6,8 +6,9 @@ services:
     depends_on:
       - mongodb
     environment:
+      - FLASK_ENV=production
       - MONGO_URI=mongodb://mongodb:27017/genghis-pond
-    command: ["./wait-for-it.sh", "mongodb:27017", "--", "python", "run.py"]
+    command: ["./wait-for-it.sh", "mongodb:27017", "--", "gunicorn", "-c", "gunicorn_config.py", "wsgi:application"]
 
   mongodb:
     image: mongo
