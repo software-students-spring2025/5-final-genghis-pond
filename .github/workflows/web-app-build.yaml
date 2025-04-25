@@ -10,12 +10,13 @@ jobs:
       - name: Create .env file
         uses: SpicyPizza/create-envfile@v2.0
         with:
-          envkey_FLASK_ENV: production
-          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          envkey_MONGO_URI: "mongodb://mongodb:27017/genghis-pond"
           file_name: .env
           directory: .
           fail_on_empty: false
+          envs: |
+            FLASK_ENV=production
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            MONGO_URI=mongodb://mongodb:27017/genghis-pond
 
       - name: Checkout Repo to Actions Runner
         uses: actions/checkout@v4
