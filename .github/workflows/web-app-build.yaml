@@ -55,7 +55,18 @@ jobs:
           script: |
             docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
             docker pull ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
+
             docker stop genghis-pond || true
             docker rm genghis-pond || true
-            docker run -d --name genghis-pond -p 5002:5002 --env-file /root/.env ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
+
+            docker stop mongodb || true
+            docker rm mongodb || true
+
+            docker run -d --name mongodb -p 27017:27017 mongo
+
+            docker run -d --name genghis-pond \
+              --env-file /root/.env \
+              --link mongodb \
+              -p 5002:5002 \
+              ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
       
