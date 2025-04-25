@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>All Sightings</title>
+  <link rel="stylesheet" href="../../static/list.css">
   <script>
     window.onload = function () {
       const url = new URL(window.location.href);
@@ -30,31 +31,36 @@
 </head>
 
 <body>
+  <header>
+    <p class = "Logo"><a href="{{ url_for('main.home') }}">Genghis Pond</a></p>
+    <h2>Wildlife Sightings</h2>
+  </header>
+  <hr>
 
-<h2>Wildlife Sightings</h2>
-
-<p>Rendering sightings page...</p>
-
-<ul>
+  <div class = "container">
   {% for sighting in sightings %}
-    <li style="margin-bottom: 1em;">
+
+    <div class = "sighting">
       <a href="{{ url_for('sightings.view_sighting', sighting_id=sighting.id) }}">
-        {{ sighting.species }} — {{ sighting.location_name }} ({{ sighting.date_posted.strftime('%Y-%m-%d') }})
-      </a><br>
+        <img class = "animalImg" src="{{ url_for('static', filename='uploads/' + sighting.image_file) }}">
+        <div class = "info">
+        <p class = "upperCase spacing">{{ sighting.species }}</p>
+        <p class = "spacing">Posted: {{ sighting.date_posted.strftime("%d %B, %Y") }}</p>
 
-      {% if request.args.user_lat and request.args.user_lng %}
-        {% set lat = request.args.user_lat|float %}
-        {% set lng = request.args.user_lng|float %}
-        {% set dist = sighting.get_distance(lat, lng) %}
-        {% if dist is not none %}
-          <em>Distance from you: {{ dist|round(2) }} km</em>
+        {% if request.args.user_lat and request.args.user_lng %}
+          {% set lat = request.args.user_lat|float %}
+          {% set lng = request.args.user_lng|float %}
+          {% set dist = sighting.get_distance(lat, lng) %}
+          {% if dist is not none %}
+            <p class = "spacing">Distance from you:<br> {{ dist|round(2) }} km</p>
+          {% endif %}
         {% endif %}
-      {% endif %}
-    </li>
+        </div>
+      </a><br>
+    </div>
   {% endfor %}
-</ul>
-
-<p><a href="{{ url_for('main.home') }}">← Back to Home</a></p>
+  <div class = "bottomPad"></div>
+  </div>
 
 </body>
 </html>
