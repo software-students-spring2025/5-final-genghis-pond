@@ -7,6 +7,16 @@ jobs:
       matrix:
         python: ["3.11"]
     steps:
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_FLASK_ENV: production
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          envkey_MONGO_URI: "mongodb://mongodb:27017/genghis-pond"
+          file_name: .env
+          directory: .
+          fail_on_empty: false
+
       - name: Checkout Repo to Actions Runner
         uses: actions/checkout@v4
       - name: Install Python 
@@ -41,16 +51,23 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
 
   deploy:
-    needs: build
     runs-on: ubuntu-latest
+    needs: push_to_docker_hub
+
     steps:
-      - name: Deploy to DigitalOcean Droplet
-        uses: appleboy/scp-action@v0.1.3
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+
+      - name: Deploy to Droplet using SSH
+        uses: appleboy/ssh-action@v0.1.3
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          port: 22
-          source: "."
-          target: "${{ env.PROJECT_DIR }}"
-        
+          script: |
+            docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+            docker pull ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
+            docker stop genghis-pond || true
+            docker rm genghis-pond || true
+            docker run -d --name genghis-pond -p 5002:5002 --env-file /root/.env ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
+      
