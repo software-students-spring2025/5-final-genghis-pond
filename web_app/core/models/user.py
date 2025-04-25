@@ -1,7 +1,7 @@
-from flask_login import UserMixin
 from bson.objectid import ObjectId
-from core import mongo, login_manager, bcrypt
+from core import bcrypt, login_manager, mongo
 from core.models.sightings import Sighting
+from flask_login import UserMixin
 
 
 @login_manager.user_loader

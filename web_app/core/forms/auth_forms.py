@@ -1,7 +1,8 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from core.models.user import User
+from flask_wtf import FlaskForm
+from wtforms import BooleanField, PasswordField, StringField, SubmitField
+from wtforms.validators import (DataRequired, Email, EqualTo, Length,
+                                ValidationError)
 
 
 class RegistrationForm(FlaskForm):

@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import StringField, TextAreaField, SubmitField, FloatField, HiddenField, IntegerField
-from wtforms.validators import DataRequired, Length, Optional, NumberRange
+from flask_wtf.file import FileAllowed, FileField, FileRequired
+from wtforms import (FloatField, HiddenField, IntegerField, StringField,
+                     SubmitField, TextAreaField)
+from wtforms.validators import DataRequired, Length, NumberRange, Optional
 
 
 class SightingForm(FlaskForm):
@@ -26,8 +27,14 @@ class SightingForm(FlaskForm):
     machine_prediction = StringField("Machine Prediction:")
     machine_confidence = IntegerField("Machine Confidence:")
 
-    species_guess = StringField("Issues with the automatic classification? Enter your species guess here or enter \"unknown\":", validators=[Optional(), Length(min=2, max=50)])
-    correction_confidence = IntegerField("Rate confidence in your correction (1 (low) -5 (high))", validators=[Optional(), NumberRange(min=1, max=5)])
+    species_guess = StringField(
+        'Issues with the automatic classification? Enter your species guess here or enter "unknown":',
+        validators=[Optional(), Length(min=2, max=50)],
+    )
+    correction_confidence = IntegerField(
+        "Rate confidence in your correction (1 (low) -5 (high))",
+        validators=[Optional(), NumberRange(min=1, max=5)],
+    )
     submit = SubmitField("Submit")
 
     # this constructor seems unnecessary but there are
@@ -47,7 +54,14 @@ class SightingForm(FlaskForm):
                 FileAllowed(["jpg", "jpeg", "png", "heic", "heif"]),
             ]
 
+
 class ViewsForm(FlaskForm):
-    species_guess = StringField("Species doesn't look right? Enter a correction here:", validators=[Optional(), Length(min=2, max=50)])
-    correction_confidence = IntegerField("Rate confidence in your correction (1 (low) -5 (high))", validators=[Optional(), NumberRange(min=1, max=5)])
+    species_guess = StringField(
+        "Species doesn't look right? Enter a correction here:",
+        validators=[Optional(), Length(min=2, max=50)],
+    )
+    correction_confidence = IntegerField(
+        "Rate confidence in your correction (1 (low) -5 (high))",
+        validators=[Optional(), NumberRange(min=1, max=5)],
+    )
     submit = SubmitField("Submit")

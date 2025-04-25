@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template as rt, redirect, url_for, flash, request
-from flask_login import login_user, logout_user, current_user
-from core.models.user import User
 from core.forms.auth_forms import LoginForm, RegistrationForm
+from core.models.user import User
+from flask import Blueprint, flash, redirect
+from flask import render_template as rt
+from flask import request, url_for
+from flask_login import current_user, login_user, logout_user
 
 auth = Blueprint("auth", __name__)
 
