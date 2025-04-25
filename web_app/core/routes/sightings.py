@@ -49,7 +49,9 @@ def save_temp_image(form_image):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_image.filename)
     image_filename = random_hex + f_ext
-    image_path = os.path.join(current_app.root_path, "static/uploads/ml_temp", image_filename)
+    upload_path = os.path.join(current_app.root_path, "static/uploads/ml_temp")
+    os.makedirs(upload_path, exist_ok=True) # i can't find the folder in github so make sure it exists here
+    image_path = os.path.join(upload_path, image_filename)
     # Resizes the image with max dimension 800 x 8000
     output_size = (800, 800)
     i = Image.open(form_image)
