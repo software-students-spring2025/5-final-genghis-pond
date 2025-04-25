@@ -5,9 +5,9 @@ services:
       - "5002:5002"
     depends_on:
       - mongodb
-    environment:
-      - FLASK_ENV=production
-      - MONGO_URI=mongodb://mongodb:27017/genghis-pond
+    env_file:
+      - .env
+
     command: ["./wait-for-it.sh", "mongodb:27017", "--", "gunicorn", "-c", "gunicorn_config.py", "wsgi:application"]
 
   mongodb:
