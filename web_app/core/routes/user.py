@@ -1,15 +1,10 @@
-from flask import (
-    Blueprint,
-    render_template as rt,
-    redirect,
-    url_for,
-    flash,
-    request
-)
-from flask_login import current_user, login_required
-from core.models.user import User
-from core.models.sightings import Sighting
 from core.forms.user_forms import UpdateAccountForm
+from core.models.sightings import Sighting
+from core.models.user import User
+from flask import Blueprint, flash, redirect
+from flask import render_template as rt
+from flask import request, url_for
+from flask_login import current_user, login_required
 
 user = Blueprint("user", __name__)
 

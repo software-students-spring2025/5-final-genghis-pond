@@ -1,8 +1,8 @@
+from core.models.user import User
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length, Email, ValidationError
-from flask_login import current_user
-from core.models.user import User
+from wtforms.validators import DataRequired, Email, Length, ValidationError
 
 
 class UpdateAccountForm(FlaskForm):

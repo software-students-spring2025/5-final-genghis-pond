@@ -25,7 +25,17 @@
     <div class = "partOne">
         <h2 class = "upperCase">{{ sighting.species }}</h2>
         {% if sighting.image_file %}
-            <img class = "animalImg" src="{{ url_for('static', filename='uploads/' + sighting.image_file) }}" alt="Sighting image">
+            {% if sighting.image_file.startswith('http') %}
+                <img class="animalImg" src="{{ sighting.image_file }}" alt="Sighting image">
+            {% else %}
+                {% if sighting.image_file %}
+                  {% if sighting.image_file.startswith('http') %}
+                    <img class="animalImg" src="{{ sighting.image_file }}" alt="{{ sighting.species }}">
+                  {% else %}
+                    <img class="animalImg" src="{{ url_for('static', filename='uploads/' + sighting.image_file) }}" alt="{{ sighting.species }}">
+                  {% endif %}
+                {% endif %}
+            {% endif %}
         {% endif %}
         <p class = "fontSize"><strong>Date Taken:</strong> {{ sighting.date_posted.strftime('%Y-%m-%d') }}</p>
         {% if sighting.description %}

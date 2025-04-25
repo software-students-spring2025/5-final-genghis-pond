@@ -1,8 +1,9 @@
 from flask import Flask
-from flask_pymongo import PyMongo
-from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+from flask_pymongo import PyMongo
 from flask_wtf import CSRFProtect
+
 from .config import Config
 
 # Initialize various modules
@@ -22,8 +23,8 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     csrf.init_app(app)
     # Blueprints
-    from core.routes.main import main
     from core.routes.auth import auth
+    from core.routes.main import main
     from core.routes.sightings import sightings
     from core.routes.user import user
 

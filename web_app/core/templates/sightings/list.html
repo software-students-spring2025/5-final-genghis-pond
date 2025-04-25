@@ -39,10 +39,15 @@
 
   <div class = "container">
   {% for sighting in sightings %}
-
     <div class = "sighting">
       <a href="{{ url_for('sightings.view_sighting', sighting_id=sighting.id) }}">
-        <img class = "animalImg" src="{{ url_for('static', filename='uploads/' + sighting.image_file) }}">
+        {% if sighting.image_file %}
+          {% if sighting.image_file.startswith('http') %}
+            <img class="animalImg" src="{{ sighting.image_file }}" alt="Sighting Image">
+          {% else %}
+            <img class="animalImg" src="{{ url_for('static', filename='uploads/' + sighting.image_file) }}" alt="Sighting Image">
+          {% endif %}
+        {% endif %}
         <div class = "info">
         <p class = "upperCase spacing">{{ sighting.species }}</p>
         <p class = "spacing">Posted: {{ sighting.date_posted.strftime("%d %B, %Y") }}</p>
