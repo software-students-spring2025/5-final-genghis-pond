@@ -1,0 +1,98 @@
+body {
+    background-image: url('../static/images/bg-index.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    height:auto;
+}
+
+.sighting{
+    color: white;
+    width: 15%;
+    height: 300px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid #D5E5D5;
+    border-radius: 20px;
+    background-color: rgba(165, 182, 141, 0.8);
+    margin-top: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 5px;
+}
+
+.spacing{
+    margin: 0;
+    padding:0;
+    font-size: 18px;
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: auto;
+}
+
+header {
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.7vw;
+    padding: 2vh;
+}
+
+@font-face {
+    font-family: 'Logo'; /*a name to be used later*/
+    src: url('../static/font/YangBagus-DYMX9.ttf'); /*URL to font*/
+}
+.Logo {
+    font-family: 'Logo';
+    font-size: 2vw;
+    margin: 0;
+    padding: 0;
+}
+
+h2{
+    margin:0;
+    padding:0;
+}
+
+a{
+    text-decoration: none;
+    color:white;
+}
+
+a:visited{
+    color:white;
+}
+
+.upperCase{
+    text-transform: capitalize;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.animalImg{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.bottomPad{
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    height: 40px;
+    width: 100%;
+}

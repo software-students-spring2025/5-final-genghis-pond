@@ -1,0 +1,54 @@
+body {
+    background-image: url('../static/images/bg-index.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    height:auto;
+}
+
+#header {
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.7vw;
+    padding: 3vh;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited{
+    color:white;
+}
+
+@font-face {
+    font-family: 'Logo'; /*a name to be used later*/
+    src: url('../static/font/YangBagus-DYMX9.ttf'); /*URL to font*/
+}
+
+.Logo {
+    font-family: 'Logo';
+    font-size: 2vw;
+    margin: 0;
+    padding: 0;
+}
+
+h2{
+    margin:0;
+    padding:0;
+}
+
+#map {
+    height: 400px;
+    width: 80%;
+    margin:auto;
+    border-radius: 20px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    border: 2px solid #3b5f3b;
+}
