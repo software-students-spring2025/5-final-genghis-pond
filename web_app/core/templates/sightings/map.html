@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <title>Sightings Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-    <style>
-        #map {
-            height: 600px;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="../../static/map.css">
 </head>
 <body>
+  <div id = "header">
+    <a class = "Logo" href="{{ url_for('main.home') }}">Ghenghis Pond</a>
+    <h2>Wildlife Sightings Map</h2>
+  </div>
+<hr>
 
-<h2>Wildlife Sightings Map</h2>
 <div id="map"></div>
-<p><a href="{{ url_for('main.home') }}">← Back to Home</a></p>
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script>
   const map = L.map('map').setView([20.0, 0.0], 2);
