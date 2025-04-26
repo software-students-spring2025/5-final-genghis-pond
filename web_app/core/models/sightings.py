@@ -23,6 +23,7 @@ class Sighting:
         self.description = kwargs.get("description")
         self.image_file = kwargs.get("image_file")
         self.date_posted = kwargs.get("date_posted")
+        self.crit = kwargs.get("crit")
 
     @property
     def id(self):
@@ -101,10 +102,10 @@ class Sighting:
         skip = (page - 1) * per_page
         direction = DESCENDING if sort_order == -1 else ASCENDING
         # Get total count
-        total = mongo.db.sightings.count_documents({})
+        total = mongo.db.sightings.count_documents({"crit": 0})
         # Breaks results down into pages
         cursor = (
-            mongo.db.sightings.find()
+            mongo.db.sightings.find({"crit": 0})
             .sort(sort_field, direction)
             .skip(skip)
             .limit(per_page)
@@ -255,6 +256,7 @@ class Sighting:
                 "type": "Point",
                 "coordinates": [self.longitude, self.latitude],
             },
+            "crit": self.crit,
         }
         if self._id:
             mongo.db.sightings.update_one({"_id": self._id}, {"$set": sighting_data})

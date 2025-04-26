@@ -1,5 +1,6 @@
 from bson.objectid import ObjectId
-
+import os
+import pandas as pd
 from .. import mongo
 
 
@@ -10,6 +11,7 @@ class Vote:
         self.sighting_id = kwargs.get("sighting_id")
         self.user_id = kwargs.get("user_id")
         self.confidence_level = kwargs.get("confidence_level")
+        self.current_app_path = kwargs.get("current_app_path")
 
     @property
     def id(self):
@@ -21,6 +23,7 @@ class Vote:
             "sighting_id": self.sighting_id,
             "confidence_level": self.confidence_level,
             "user_id": self.user_id,
+            "current_app_path": self.current_app_path,
         }
 
         prev_vote = mongo.db.votes.find_one(
@@ -70,7 +73,15 @@ class Vote:
             }
             # set species to be the top vote, and then alphabetically bc i'm not sure what to do in case
             # of a tie
-            mongo.db.sightings.update_one(
-                {"_id": ObjectId(self.sighting_id)},
-                {"$set": {"species": list(sorted_species.keys())[0]}},
-            )
+            winning_species = list(sorted_species.keys())[0]
+            # check IUCN, ~5% of common names are duplicates, check for any crit match
+            df_path = os.path.join(self.current_app_path, 'databases/full_iucn.tsv')
+            full_iucn = pd.read_csv(df_path, delimiter='\t')
+            if full_iucn[full_iucn['common_name'] == winning_species]['crit'].sum() > 0:
+                mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 1}})
+            else:
+                mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 0}})
+
+            mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'species': winning_species}})
+
+
