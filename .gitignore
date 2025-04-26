@@ -150,5 +150,5 @@ cython_debug/
 
 # massive original file
 web_app/databases/Taxon.tsv
-web_app/databases/taxon.txt
+web_app/core/databases/taxon.txt
 web_app/core/models/classifier.pybuilder
