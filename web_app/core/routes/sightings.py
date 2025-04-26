@@ -145,7 +145,8 @@ def submit_vote(sighting_id):
         species_guess=species_guess,
         sighting_id=sighting_id,
         confidence_level=int(correction_confidence) if correction_confidence else 1,
-        user_id=current_user.id
+        user_id=current_user.id,
+        current_app_path = current_app.root_path
     )
     vote.save_vote()
 
@@ -186,6 +187,7 @@ def create_sighting():
             longitude=form.longitude.data,
             user_id=current_user.id,
             image_file=image_file,
+            crit=0,
         )
         sighting.save()
 
@@ -194,7 +196,8 @@ def create_sighting():
                 species_guess = user_prediction,
                 sighting_id = sighting.id,
                 user_id = sighting.user_id,
-                confidence_level = user_confidence
+                confidence_level = user_confidence,
+                current_app_path = current_app.root_path
             )
             user_vote.save_vote()
 
@@ -203,7 +206,8 @@ def create_sighting():
                 species_guess = ml_prediction,
                 sighting_id = sighting.id,
                 user_id = 'speciesnet', # i guess speciesnet gets one vote
-                confidence_level = ml_confidence
+                confidence_level = ml_confidence,
+                current_app_path = current_app.root_path
             )
             ml_vote.save_vote()
 
@@ -246,8 +250,9 @@ def predict_species():
 def species_names():
     '''
     Pull the 'common_name' column out of full_data.tsv for fuzzy search
+    Edit 04/26: change to full_iucn.tsv for conservtion status
     '''
-    df_path = os.path.join(current_app.root_path, 'databases/full_data.tsv')
+    df_path = os.path.join(current_app.root_path, 'databases/full_iucn.tsv')
     df = pd.read_csv(df_path, delimiter='\t')
     print(df["common_name"].head())
     names = df['common_name'].dropna().unique().tolist()
