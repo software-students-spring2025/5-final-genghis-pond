@@ -73,10 +73,14 @@ class Vote:
             # set species to be the top vote, and then alphabetically bc i'm not sure what to do in case
             # of a tie
             winning_species = list(sorted_species.keys())[0]
-            if iucn_species.get(winning_species, 0):
+            if winning_species not in iucn_species:
+                raise Exception(f"{winning_species} has no matches in iucn.py")
+            elif iucn_species.get(winning_species) == 1:
                 mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 1}})
-            else:
+            elif iucn_species.get(winning_species) == 0:
                 mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 0}})
+            else:
+                raise Exception(f"{winning_species} value is not 0 or 1 in iucn.py ")
 
             mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'species': winning_species}})
 
