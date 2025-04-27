@@ -23,7 +23,7 @@ class Sighting:
         self.description = kwargs.get("description")
         self.image_file = kwargs.get("image_file")
         self.date_posted = kwargs.get("date_posted")
-        self.crit = kwargs.get("crit")
+        self.crit = 1
 
     @property
     def id(self):
@@ -126,7 +126,14 @@ class Sighting:
     def search(
         cls, species=None, page=1, per_page=10, sort_by="date_posted", sort_order=-1
     ):
-        search_query = {}
+        
+        search_query = {'species': {'$regex': species}} # can't i like just do this???
+        # like it should find anything that contains the species names
+        # if you search "owl" it should return anything with owl in it
+        # but like if you search "burrowing owl" it'll only return burrowing owls
+        # i think it would be more complicated to try to do both typo handling and this type of match
+        # regex isn't great at typos afaik, not sure how to do both regex and fuzzy search
+
         # add a regex line here eventually when adding search by species
         total = mongo.db.sightings.count_documents(search_query)
         direction = DESCENDING if sort_order == -1 else ASCENDING
@@ -256,7 +263,7 @@ class Sighting:
                 "type": "Point",
                 "coordinates": [self.longitude, self.latitude],
             },
-            "crit": self.crit,
+            "crit": 1,
         }
         if self._id:
             mongo.db.sightings.update_one({"_id": self._id}, {"$set": sighting_data})
