@@ -2,7 +2,7 @@ from bson.objectid import ObjectId
 import os
 import pandas as pd
 from .. import mongo
-from .iucn_data import iucn_species
+from core.models.iucn_data import iucn_species
 
 
 class Vote:
