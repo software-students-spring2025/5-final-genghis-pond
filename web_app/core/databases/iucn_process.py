@@ -64,3 +64,13 @@ full_iucn.to_csv('full_iucn.tsv', sep='\t', index=False)
 
 print(len(full_iucn.drop_duplicates(subset='common_name')))
 print(len(full_iucn.drop_duplicates(subset='common_name'))/len(full_iucn))
+
+full_iucn = full_iucn.groupby('common_name', as_index=False).agg({'crit': 'max'}) # get max crit value
+
+iucn_species = dict(zip(full_iucn['common_name'], full_iucn['crit']))
+
+with open("iucn_data.py", "w") as f:
+    f.write("iucn_species = {\n")
+    for species, crit in iucn_species.items():
+        f.write(f'    {species!r}: {crit},\n')
+    f.write("}\n")

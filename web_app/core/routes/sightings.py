@@ -167,7 +167,6 @@ def submit_vote(sighting_id):
         sighting_id=sighting_id,
         confidence_level=int(correction_confidence) if correction_confidence else 1,
         user_id=current_user.id,
-        current_app_path = current_app.root_path
     )
     vote.save_vote()
 
@@ -217,7 +216,6 @@ def create_sighting():
                 sighting_id=sighting.id,
                 user_id=sighting.user_id,
                 confidence_level=user_confidence,
-                current_app_path = current_app.root_path,
             )
             user_vote.save_vote()
 
@@ -227,7 +225,6 @@ def create_sighting():
                 sighting_id=sighting.id,
                 user_id="speciesnet",  # i guess speciesnet gets one vote
                 confidence_level=ml_confidence,
-                current_app_path = current_app.root_path,
             )
             ml_vote.save_vote()
 
