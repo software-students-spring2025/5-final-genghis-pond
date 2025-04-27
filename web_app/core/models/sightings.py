@@ -126,13 +126,20 @@ class Sighting:
     def search(
         cls, species=None, page=1, per_page=10, sort_by="date_posted", sort_order=-1
     ):
-        
-        search_query = {'species': {'$regex': species}} # can't i like just do this???
+        if species:
+            search_query = {'species': {'$regex': species.lower()}} # can't i like just do this???
+        else:
+            search_query = {}
         # like it should find anything that contains the species names
         # if you search "owl" it should return anything with owl in it
         # but like if you search "burrowing owl" it'll only return burrowing owls
         # i think it would be more complicated to try to do both typo handling and this type of match
         # regex isn't great at typos afaik, not sure how to do both regex and fuzzy search
+
+        #potential way to handle errors:
+        # species = [list of any species that falls into fuzzysearch species]
+        # do this after we get other things working jeeeesus christ
+        # i don't want to deal with requirements.txt rn tbh
 
         # add a regex line here eventually when adding search by species
         total = mongo.db.sightings.count_documents(search_query)
