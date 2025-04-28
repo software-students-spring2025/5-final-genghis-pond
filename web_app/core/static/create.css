@@ -110,7 +110,7 @@ input[type="file"]::file-selector-button {
     cursor: pointer;
     color: black !important;
     background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.16);
+    border: 2px solid rgba(0, 0, 0, 0.16);
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
     margin-right: 16px;
     transition: background-color 200ms;
@@ -130,9 +130,9 @@ label{
     margin-left: 10px;
     justify-content:space-around;
     border-radius: 20px;
-    border: solid 2px rgb(19, 63, 37);
-    background-color: #6F826A;
-    color: white;
+    border: solid 2px  #344335;
+    background-color: white;
+    color: black;
 }
 
 .partOne{
@@ -166,6 +166,8 @@ label{
     height: 20px;
     width: 420px;
     border: 2px solid #727D73;
+    border-radius: 20px;
+    padding-left: 10px;
 }
 
 #rate{
@@ -176,6 +178,8 @@ label{
 
 input[type="number"]{
     height: 20px;
+    border-radius: 20px;
+    padding-left: 10px;
 }
 
 #descriptionDiv{
