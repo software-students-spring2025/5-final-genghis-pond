@@ -90,13 +90,16 @@ def haversine(lat1, lon1, lat2, lon2):
     return radius * c
 
 
-# lists all sightings
 @sightings.route("/sightings")
 def list_view():
     user_lat = request.args.get("user_lat", type=float)
     user_lng = request.args.get("user_lng", type=float)
-    # might not be a long term sustainable way to sort if there's thousands of posts
-    sightings_data = Sighting.get_all()
+    # updated to allow for searching by species
+    species = request.args.get("species")
+    if species:
+        sightings_data = Sighting.search(species=species)
+    else:
+        sightings_data = Sighting.get_all()
     sightings = sightings_data["items"]
     if user_lat is not None and user_lng is not None:
         sightings.sort(
@@ -109,6 +112,7 @@ def list_view():
         filter=None,
         sort_by=None,
     )
+
 
 
 @sightings.route("/sightings/map")
