@@ -1,21 +1,17 @@
 FROM python:3.11-slim
 
-RUN mkdir -p /web_app
-
-WORKDIR /web_app
-
 RUN apt-get update && apt-get install -y \
     ffmpeg libsm6 libxext6 && \
     rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+WORKDIR /web_app
 
-COPY wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN chmod +x ./start.sh
+RUN chmod +x wait-for-it.sh start.sh
 
 CMD ["./start.sh"]

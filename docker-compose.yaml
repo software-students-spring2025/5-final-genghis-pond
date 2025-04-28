@@ -1,27 +1,32 @@
+version: "3.8"
+
 services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+
   web_app:
     build: ./web_app
+    container_name: web_app
     ports:
       - "5002:5002"
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
     environment:
       - MONGO_URI=mongodb://mongodb:27017/genghis-pond
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
       - AWS_S3_REGION_NAME=${AWS_S3_REGION_NAME}
-    depends_on:
-      - mongodb
-    env_file:
-      - .env
-
     command: ["./wait-for-it.sh", "mongodb:27017", "--", "gunicorn", "-c", "gunicorn_config.py", "wsgi:application"]
-
-  mongodb:
-    image: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
+    restart: always
 
 volumes:
   mongodb_data:

@@ -96,3 +96,31 @@ a:visited{
     height: 40px;
     width: 100%;
 }
+
+#searchForm{
+    margin:auto;
+}
+
+#searchInput{
+    border-radius: 20px;
+    height: 23px;
+    background-color:  #D5E5D5;
+    padding-left: 10px;
+    color:  rgb(49, 49, 49);
+    font-size: 16px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+input::placeholder {
+    color: rgb(61, 61, 61);
+}
+
+#searchBtn{
+    width: 120px;
+    height: 27px;
+    border: 1px solid black;
+    font-size: 16px;
+    background-color: #ffdc40;
+    color: black;
+    border-radius: 25px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

@@ -48,40 +48,48 @@ class Vote:
 
     def update_sighting_species(self):
         """
-        update sighting species by voting if applicable
+        Update sighting species by voting if applicable
         """
         sighting = mongo.db.sightings.find_one({"_id": ObjectId(self.sighting_id)})
         if not sighting:
-            # presumably sighting has been deleted, clear votes from mongodb
             mongo.db.votes.delete_many({"sighting_id": self.sighting_id})
-        else:
-            species_votes = {}
-            all_votes = mongo.db.votes.find({"sighting_id": self.sighting_id})
-            for vote in all_votes:
-                species_guess = vote.get("species_guess")
-                if species_guess not in species_votes:
-                    species_votes[species_guess] = 0
-                species_votes[species_guess] += vote.get("confidence_level", 1)
+            return
 
-            sorted_species = {
-                k: v for k, v in sorted(species_votes.items(), key=lambda item: item[1], reverse=True)
-            }
+        species_votes = {}
+        all_votes = mongo.db.votes.find({"sighting_id": self.sighting_id})
+        for vote in all_votes:
+            species_guess = vote.get("species_guess")
+            if species_guess not in species_votes:
+                species_votes[species_guess] = 0
+            species_votes[species_guess] += vote.get("confidence_level", 1)
 
-            winning_species = list(sorted_species.keys())[0]
+        sorted_species = {
+            k: v for k, v in sorted(species_votes.items(), key=lambda item: item[1], reverse=True)
+        }
 
-            lookup_species = winning_species
-            if lookup_species not in iucn_species:
-                if lookup_species + 's' in iucn_species:
-                    lookup_species = lookup_species + 's'
-                else:
-                    mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 0}})
-            if iucn_species.get(lookup_species) == 1:
+        winning_species = list(sorted_species.keys())[0]
+
+        lookup_species = winning_species
+        if lookup_species not in iucn_species:
+            if lookup_species + 's' in iucn_species:
+                lookup_species = lookup_species + 's'
+            else:
+                lookup_species = None
+
+        if lookup_species is not None:
+            iucn_value = iucn_species.get(lookup_species)
+            if iucn_value == 1:
                 mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 1}})
-            elif iucn_species.get(lookup_species) == 0:
+            elif iucn_value == 0:
                 mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 0}})
             else:
-                raise Exception(f"{lookup_species} value is not 0 or 1 in iucn.py")
-            mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'species': winning_species}})
+                print(f"Warning: {lookup_species} value in iucn_species is not 0 or 1 — skipping crit update")
+        else:
+            print(f"Warning: {winning_species} not found in iucn_species — skipping crit update")
+
+        mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'species': winning_species}})
+
+
 
 
 
