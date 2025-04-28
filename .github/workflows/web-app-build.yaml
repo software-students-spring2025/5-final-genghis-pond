@@ -71,4 +71,6 @@ jobs:
               --link mongodb \
               -p 5002:5002 \
               ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
+
+            sudo systemctl restart nginx
       
