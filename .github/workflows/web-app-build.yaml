@@ -26,7 +26,6 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv
       - name: Test Web App
-        working-directory: web_app
         run: |
             pipenv install pytest
             pipenv --venv
