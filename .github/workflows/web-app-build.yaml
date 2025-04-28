@@ -74,8 +74,8 @@ jobs:
           envs: SECRET_KEY,DOCKER_USERNAME,DOCKER_PASSWORD
           script: |
             rm -rf /root/app/
-            git clone --depth 1 https://github.com/software-students-spring2025/5-final-genghis-pond.git /root/app/
-            cd /root/app/ || exit 1
+            git clone https://github.com/software-students-spring2025/5-final-genghis-pond.git /root/app/
+            cd /root/app/
             echo "FLASK_ENV=production" > .env
             echo "SECRET_KEY=${SECRET_KEY}" >> .env
             echo "MONGO_URI=mongodb://mongodb:27017/genghis-pond" >> .env
@@ -83,5 +83,3 @@ jobs:
             docker compose down --volumes --remove-orphans || true
             docker compose build --pull --no-cache web_app
             docker compose up -d
-          
-
