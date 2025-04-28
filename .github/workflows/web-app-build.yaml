@@ -1,5 +1,4 @@
 name: Genghis Pond CI/CD
-
 on: [pull_request, push]
 
 jobs:
@@ -7,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ["3.11"]
+        python: [ "3.11" ]
     steps:
       - name: Checkout Repo to Actions Runner
         uses: actions/checkout@v4
@@ -38,7 +37,7 @@ jobs:
 
       - name: Test Web App
         run: |
-          pipenv install --deploy --dev --ignore-pipfile
+          pipenv install --skip-lock
           pipenv run python -m pytest
 
   push_to_docker_hub:
