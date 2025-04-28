@@ -25,6 +25,13 @@ jobs:
         run: sleep 10
       - name: Install pipenv
         run: pip install pipenv
+      - name: Test Web App
+        working-directory: web_app
+        run: |
+          pipenv install pytest
+          pipenv --venv
+          pipenv install
+          pipenv run python -m pytest
   push_to_docker_hub:
     needs: build
     runs-on: ubuntu-latest
@@ -34,7 +41,7 @@ jobs:
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
       - name: Build Docker Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest ./web_app
+        run: docker build --no-cache -t ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest ./web_app
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
 
@@ -61,6 +68,8 @@ jobs:
 
             docker stop mongodb || true
             docker rm mongodb || true
+
+            docker volume prune -f
 
             docker run -d --name mongodb -p 27017:27017 mongo
 
