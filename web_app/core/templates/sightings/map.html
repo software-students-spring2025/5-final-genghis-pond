@@ -29,9 +29,8 @@
       const props = feature.properties;
       const popupHtml = `
         <div>
-          <strong>${props.species}</strong><br>
-          ${props.location_name}<br>
-          <a href="/sightings/${props.id}">View</a>
+          <strong class = "upperCase">${props.species}</strong><br>
+          <a class = "black" href="/sightings/${props.id}">View</a>
         </div>
       `;
       layer.bindPopup(popupHtml);
