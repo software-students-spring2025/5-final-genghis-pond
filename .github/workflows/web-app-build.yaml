@@ -1,46 +1,67 @@
 name: Genghis Pond CI/CD
 on: [pull_request, push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python: [ "3.11" ]
+
     steps:
       - name: Checkout Repo to Actions Runner
         uses: actions/checkout@v4
+
       - name: Manually create .env file
         run: |
           echo "FLASK_ENV=production" >> .env
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
           echo "MONGO_URI=mongodb://mongodb:27017/genghis-pond" >> .env
+
       - name: Install Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+
       - name: Setup Containers with Docker Compose
         run: |
           docker compose up -d --build
+
       - name: Wait for services to be ready
         run: sleep 10
+
       - name: Install pipenv
         run: pip install pipenv
+
+      - name: Remove any existing Pipenv environment
+        run: |
+          if [ -d "$(pipenv --venv 2>/dev/null)" ]; then
+            pipenv --rm
+          fi
+
       - name: Set Pipenv Python
         run: pipenv --python $(which python)
+
+      - name: Install Dependencies
+        run: pipenv install --deploy --dev --ignore-pipfile
+
       - name: Test Web App
-        run: |
-          pipenv install --deploy --dev --ignore-pipfile
-          pipenv run python -m pytest
+        run: pipenv run python -m pytest
+
   push_to_docker_hub:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v4
+
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
       - name: Build Docker Image
         run: docker build --no-cache -t ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest ./web_app
+
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
 
@@ -65,4 +86,3 @@ jobs:
             docker compose down --volumes --remove-orphans
             docker compose build --no-cache
             docker compose up -d
-      
