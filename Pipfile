@@ -6,8 +6,19 @@ name = "pypi"
 [packages]
 certifi = "==2025.1.31"
 pymongo = "*"
+flask = "*"
+flask-pymongo = "*"
+flask-login = "*"
+flask-bcrypt = "*"
+flask-wtf = "*"
+python-dotenv = "*"
+pillow = "*"
+wtforms = "*"
+speciesnet = "*"
+yolov5 = "*"
 
 [dev-packages]
+pytest = "*"
 
 [requires]
 python_version = "3.11"
