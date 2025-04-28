@@ -27,7 +27,7 @@ jobs:
         run: pip install pipenv
       - name: Test Web App
         run: |
-            pipenv install pytest
+            pipenv install --deploy --dev --ignore-pipfile
             pipenv --venv
             pipenv install
             pipenv run python -m pytest
