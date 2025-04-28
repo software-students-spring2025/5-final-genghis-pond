@@ -38,14 +38,14 @@
   <hr>
 
   <div class = "container">
-    <form method="get" action="{{ url_for('sightings.list_view') }}">
-      <input
+    <form id = "searchForm" method="get" action="{{ url_for('sightings.list_view') }}">
+      <input id = "searchInput"
         type="text"
         name="species"
         placeholder="Search by species..."
         value="{{ request.args.get('species', '') }}"
       >
-      <button type="submit">Search</button>
+      <button id = "searchBtn" type="submit">Search</button>
     </form>
   {% for sighting in sightings %}
     <div class = "sighting">
