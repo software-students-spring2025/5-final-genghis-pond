@@ -25,7 +25,7 @@ jobs:
 
       - name: Setup Containers with Docker Compose
         run: |
-          docker compose build --pull --no-cache web_app
+          DOCKER_BUILDKIT=0 docker compose build --pull --no-cache web_app
           docker compose up -d
 
       - name: Wait for services to be ready
