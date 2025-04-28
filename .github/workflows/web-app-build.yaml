@@ -69,11 +69,17 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
+          envs: SECRET_KEY,DOCKER_USERNAME,DOCKER_PASSWORD
           script: |
             rm -rf /root/app/
             git clone https://github.com/software-students-spring2025/5-final-genghis-pond.git /root/app/
             cd /root/app/
-            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+            echo "FLASK_ENV=production" > .env
+            echo "SECRET_KEY=${SECRET_KEY}" >> .env
+            echo "MONGO_URI=mongodb://mongodb:27017/genghis-pond" >> .env
+            echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
             docker compose down --volumes --remove-orphans || true
             docker compose up --build -d
+
+
 
