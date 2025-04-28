@@ -51,37 +51,37 @@ class Vote:
         update sighting species by voting if applicable
         """
         sighting = mongo.db.sightings.find_one({"_id": ObjectId(self.sighting_id)})
-        if (
-            not sighting
-        ):  # presumably sighting has been deleted, clear votes from mongodb
+        if not sighting:
+            # presumably sighting has been deleted, clear votes from mongodb
             mongo.db.votes.delete_many({"sighting_id": self.sighting_id})
         else:
             species_votes = {}
             all_votes = mongo.db.votes.find({"sighting_id": self.sighting_id})
             for vote in all_votes:
-                if vote.get("species_guess") not in species_votes:
-                    species_votes[vote.get("species_guess")] = 0
-                species_votes[vote.get("species_guess")] += vote.get(
-                    "confidence_level", 1
-                )
+                species_guess = vote.get("species_guess")
+                if species_guess not in species_votes:
+                    species_votes[species_guess] = 0
+                species_votes[species_guess] += vote.get("confidence_level", 1)
+
             sorted_species = {
-                k: v
-                for k, v in sorted(
-                    species_votes.items(), key=lambda item: item[1], reverse=True
-                )
+                k: v for k, v in sorted(species_votes.items(), key=lambda item: item[1], reverse=True)
             }
-            # set species to be the top vote, and then alphabetically bc i'm not sure what to do in case
-            # of a tie
+
             winning_species = list(sorted_species.keys())[0]
-            if winning_species not in iucn_species:
-                raise Exception(f"{winning_species} has no matches in iucn.py")
-            elif iucn_species.get(winning_species) == 1:
+
+            lookup_species = winning_species
+            if lookup_species not in iucn_species:
+                if lookup_species + 's' in iucn_species:
+                    lookup_species = lookup_species + 's'
+                else:
+                    mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 0}})
+            if iucn_species.get(lookup_species) == 1:
                 mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 1}})
-            elif iucn_species.get(winning_species) == 0:
+            elif iucn_species.get(lookup_species) == 0:
                 mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 0}})
             else:
-                raise Exception(f"{winning_species} value is not 0 or 1 in iucn.py ")
-
+                raise Exception(f"{lookup_species} value is not 0 or 1 in iucn.py")
             mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'species': winning_species}})
+
 
 

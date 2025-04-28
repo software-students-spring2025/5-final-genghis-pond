@@ -1,5 +1,7 @@
 FROM python:3.11-slim
 
+RUN mkdir -p /web_app
+
 WORKDIR /web_app
 
 RUN apt-get update && apt-get install -y \
