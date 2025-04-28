@@ -74,7 +74,7 @@ class Vote:
                 if lookup_species + 's' in iucn_species:
                     lookup_species = lookup_species + 's'
                 else:
-                    raise Exception(f"{winning_species} has no matches in iucn.py")
+                    mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 0}})
             if iucn_species.get(lookup_species) == 1:
                 mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 1}})
             elif iucn_species.get(lookup_species) == 0:
