@@ -14,8 +14,6 @@ flask-wtf = "*"
 python-dotenv = "*"
 pillow = "*"
 wtforms = "*"
-speciesnet = "*"
-yolov5 = "*"
 
 [dev-packages]
 pytest = "*"
