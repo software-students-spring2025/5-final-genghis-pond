@@ -37,16 +37,16 @@
   </header>
   <hr>
 
+  <form id = "searchForm" method="get" action="{{ url_for('sightings.list_view') }}">
+    <input id = "searchInput"
+      type="text"
+      name="species"
+      placeholder="Search by species..."
+      value="{{ request.args.get('species', '') }}"
+    >
+    <button id = "searchBtn" type="submit">Search</button>
+  </form>
   <div class = "container">
-    <form id = "searchForm" method="get" action="{{ url_for('sightings.list_view') }}">
-      <input id = "searchInput"
-        type="text"
-        name="species"
-        placeholder="Search by species..."
-        value="{{ request.args.get('species', '') }}"
-      >
-      <button id = "searchBtn" type="submit">Search</button>
-    </form>
   {% for sighting in sightings %}
     <div class = "sighting">
       <a href="{{ url_for('sightings.view_sighting', sighting_id=sighting.id) }}">
