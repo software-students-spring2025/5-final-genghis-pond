@@ -14,9 +14,14 @@ flask-wtf = "*"
 python-dotenv = "*"
 pillow = "*"
 wtforms = "*"
+boto3 = "*"
+email-validator = "*"
+pytest-cov = "*"
 
 [dev-packages]
 pytest = "*"
+boto3 = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.11"

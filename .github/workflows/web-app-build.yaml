@@ -5,10 +5,29 @@ on: [pull_request, push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    services:
+      mongo:
+        image: mongo:6
+        options: >-
+          --health-cmd="mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     strategy:
       matrix:
         python: ["3.11"]
     steps:
+      - name: Clean up Unnecessary Files
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /usr/local/lib/android
+          docker system prune -af
+
       - name: Checkout Repo to Actions Runner
         uses: actions/checkout@v4
 
@@ -16,7 +35,7 @@ jobs:
         run: |
           echo "FLASK_ENV=production" >> .env
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-          echo "MONGO_URI=mongodb://mongodb:27017/genghis-pond" >> .env
+          echo "MONGO_URI=mongodb://localhost:27017/genghis-pond-test" >> .env
 
       - name: Install Python
         uses: actions/setup-python@v5
@@ -37,6 +56,8 @@ jobs:
         run: |
           pipenv install --dev --skip-lock
           pipenv run python -m pytest
+        env:
+          MONGO_URI: mongodb://localhost:27017/genghis-pond-test
 
   push_to_docker_hub:
     needs: build
