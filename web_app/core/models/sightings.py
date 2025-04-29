@@ -287,7 +287,7 @@ class Sighting:
     # not sure entirely how this works got from tutorial
     @classmethod
     def get_all_as_geojson(cls):
-        cursor = mongo.db.sightings.find()
+        cursor = mongo.db.sightings.find(({'crit': 0}))
         features = []
         for doc in cursor:
             feature = {
