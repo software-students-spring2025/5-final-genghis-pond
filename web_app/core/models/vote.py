@@ -80,7 +80,7 @@ class Vote:
             elif iucn_species.get(lookup_species) == 0:
                 mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 0}})
             else:
-                raise Exception(f"{lookup_species} value is not 0 or 1 in iucn.py")
+                mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'crit': 0}})
             mongo.db.sightings.update_one({"_id": ObjectId(self.sighting_id)}, {'$set': {'species': winning_species}})
 
 
