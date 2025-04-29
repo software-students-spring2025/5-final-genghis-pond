@@ -36,8 +36,8 @@ jobs:
       - name: Test Web App
         run: |
           pipenv install --dev --skip-lock
-          pipenv run pip install -r requirements.txt
-          timeout 30m pipenv run pip install -r runtime-requirements.txt
+          pipenv run pip install -r ./web_app/requirements.txt
+          timeout 30m pipenv run pip install -r ./web_app/runtime-requirements.txt
           pipenv run python -m pytest
 
   push_to_docker_hub:
