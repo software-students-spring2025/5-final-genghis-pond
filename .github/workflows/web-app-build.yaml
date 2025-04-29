@@ -66,9 +66,17 @@ jobs:
             docker stop web_app || true
             docker rm web_app || true
 
+            docker stop mongodb || true
+            docker rm mongodb || true
+
+            docker run -d --name mongodb \
+              --restart unless-stopped \
+              -p 27017:27017 \
+              mongo
+
             docker run -d --name web_app \
               --restart unless-stopped \
-              -p 5000:5000 \
+              -p 5002:5002 \
               -e FLASK_ENV=production \
               -e SECRET_KEY=${SECRET_KEY} \
               -e MONGO_URI=mongodb://mongodb:27017/genghis-pond \
