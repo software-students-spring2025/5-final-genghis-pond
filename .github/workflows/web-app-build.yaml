@@ -10,14 +10,14 @@ jobs:
       matrix:
         python: ["3.11"]
     steps:
-      - name: Clean up unnecessary files
+      - name: Clean up Unnecessary Files
         run: |
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /opt/ghc
           sudo rm -rf /usr/local/share/boost
           sudo rm -rf /usr/local/lib/android
           docker system prune -af
-          
+
       - name: Checkout Repo to Actions Runner
         uses: actions/checkout@v4
 
@@ -45,8 +45,6 @@ jobs:
       - name: Test Web App
         run: |
           pipenv install --dev --skip-lock
-          pipenv run pip install -r ./web_app/requirements.txt
-          pipenv run pip install -r ./web_app/runtime-requirements.txt
           pipenv run python -m pytest
 
   push_to_docker_hub:
