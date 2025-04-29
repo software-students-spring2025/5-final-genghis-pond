@@ -37,6 +37,7 @@ You can visit our website using the link: [https://genghis-pond.org/](https://ge
 git clone https://github.com/software-students-spring2025/5-final-genghis-pond
 ```
 
+
 ### 3. Build the docker image:
 
 ```
@@ -63,19 +64,25 @@ git clone https://github.com/software-students-spring2025/5-final-genghis-pond
 cd 5-final-genghis-pond
 ```
 
-### 4. Build the docker image in detached mode:
+### 4. Set MONGO_URI
+
+```
+$export MONGO_URI=mongodb://localhost:27017/genghis-pond-test
+```
+
+### 5. Build the docker image in detached mode:
 
 ```
 docker compose up --d
 ```
 
-### 5. Start virtual environment:
+### 6. Start virtual environment:
 
 ```
 pipenv shell
 ```
 
-### 6. Run pytests with coverage:
+### 7. Run pytests with coverage:
 
 ```
 pipenv run pytest --cov=. --cov-report=term-missing
