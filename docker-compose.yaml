@@ -4,7 +4,7 @@ services:
     ports:
       - "5002:5002"
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/genghis-pond
+      - MONGO_URI=${MONGO_URI}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
@@ -19,7 +19,7 @@ services:
   mongodb:
     image: mongo
     ports:
-      - "27017:27017"
+      - "${MONGO_PORT:-27017}:27017"
     volumes:
       - mongodb_data:/data/db
 
