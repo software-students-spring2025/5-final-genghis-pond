@@ -52,3 +52,35 @@ Databases used for the web app:
 
 * GBIF.org (15 April 2025) GBIF Occurrence Download https://doi.org/10.15468/dl.zuup37
 * IUCN (2025). The IUCN Red List of Threatened Species. Version 2025-1. https://www.iucnredlist.org/. Downloaded on 2025-04-07. https://doi.org/10.15468/0qnb58 accessed via GBIF.org on 2025-04-29.
+
+* Speciesnet
+authors:
+  - family-names: Gadot
+    given-names: Tomer
+  - family-names: Istrate
+    given-names: Ștefan
+  - family-names: Kim
+    given-names: Hyungwon
+  - family-names: Morris
+    given-names: Dan
+  - family-names: Beery
+    given-names: Sara
+  - family-names: Birch
+    given-names: Tanya
+  - family-names: Ahumada
+    given-names: Jorge
+title: "To crop or not to crop: Comparing whole-image and cropped classification on a large dataset of camera trap images"
+version: "1.0.0"
+date-released: "2024-11-24"
+publisher: "Wiley Online Library"
+journal: "IET Computer Vision"
+volume: "18"
+issue: "8"
+pages: "1193--1208"
+year: "2024"
+doi: "10.1049/cvi2.12318" 
+type: software
+keywords:
+  - Camera traps
+  - Conservation
+  - Computer vision
