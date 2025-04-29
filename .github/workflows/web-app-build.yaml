@@ -78,7 +78,7 @@ jobs:
             docker stop mongodb || true
             docker rm mongodb || true
 
-            docker run -d --name mongodb --network genghis-net -p 27017:27017 mongo
+            docker run -d --name mongodb --network genghis-network -p 27017:27017 mongo
 
             docker run -d --name web_app \
               --network genghis-network \
