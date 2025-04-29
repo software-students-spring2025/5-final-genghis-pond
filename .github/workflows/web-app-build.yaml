@@ -6,6 +6,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    services:
+      mongo:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     strategy:
       matrix:
         python: ["3.11"]
@@ -46,6 +58,8 @@ jobs:
         run: |
           pipenv install --dev --skip-lock
           pipenv run python -m pytest
+        env:
+          MONGO_URI: mongodb://localhost:27017/genghis-pond-test
 
   push_to_docker_hub:
     needs: build
