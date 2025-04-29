@@ -88,6 +88,23 @@ pipenv shell
 pipenv run pytest --cov=. --cov-report=term-missing
 ```
 
+# Example .env file in root directory
+
+```
+PASSWORD=realverycoolpassword
+HOST=host.ip.address
+USERNAME=username
+DOCKER_USERNAME=docker_username
+DOCKER_PASSWORD=docker_password
+FLASK_ENV=production
+MONGO_URI=mongodb://localhost:27017/testdb
+AWS_ACCESS_KEY_ID=secret_key_id
+AWS_SECRET_ACCESS_KEY=secret_access_key
+AWS_STORAGE_BUCKET_NAME=bucket_name
+AWS_S3_REGION_NAME=region
+PYTHONPATH=. pytest
+```
+
 # Citations
 Databases used for the web app:
 
