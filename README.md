@@ -46,7 +46,7 @@ docker-compose up --build
 ### 4. Visit the link:
 
 ```
-[http://localhost:5002/](http://localhost:5002/)
+http://localhost:5002/
 ```
 
 # Citations
