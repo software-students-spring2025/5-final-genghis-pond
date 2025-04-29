@@ -49,6 +49,38 @@ docker-compose up --build
 http://localhost:5002/
 ```
 
+## Running Pytests
+
+### 2. Clone our repository:
+
+```
+git clone https://github.com/software-students-spring2025/5-final-genghis-pond
+```
+
+### 3. Change directories:
+
+```
+cd 5-final-genghis-pond
+```
+
+### 4. Build the docker image in detached mode:
+
+```
+docker compose up --d
+```
+
+### 5. Start virtual environment:
+
+```
+pipenv shell
+```
+
+### 6. Run pytests with coverage:
+
+```
+pipenv run pytest --cov=. --cov-report=term-missing
+```
+
 # Citations
 Databases used for the web app:
 
