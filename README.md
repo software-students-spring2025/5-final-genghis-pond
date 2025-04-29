@@ -10,20 +10,20 @@ Don't worry, if your species is identified as being critically endangered it wil
 
 ## Contributors
 
--[Anna Ye](https://github.com/AnnaTheYe)
--[Tadelin De Leon](https://github.com/TadelinD)
--[Kurt Lukowitsch](https://github.com/kl3641)
--[Sophia Wang](https://github.com/s-m-wang)
+- [Anna Ye](https://github.com/AnnaTheYe)
+- [Tadelin De Leon](https://github.com/TadelinD)
+- [Kurt Lukowitsch](https://github.com/kl3641)
+- [Sophia Wang](https://github.com/s-m-wang)
 
 ## Link To Container Images
 
-Hosted on Docker Hub: https://hub.docker.com/r/annaye/genghis-pond
+Hosted on Docker Hub: [https://hub.docker.com/r/annaye/genghis-pond](https://hub.docker.com/r/annaye/genghis-pond)
 
 # How to run
 
 ## Public Website
 
-You can visit our website using the link: https://genghis-pond.org/
+You can visit our website using the link: [https://genghis-pond.org/](https://genghis-pond.org/)
 
 ## Local Configuration
 
@@ -44,7 +44,7 @@ docker-compose up --build
 ### 4. Visit the link:
 
 ```
-http://localhost:5002/
+[http://localhost:5002/](http://localhost:5002/)
 ```
 
 # Citations
