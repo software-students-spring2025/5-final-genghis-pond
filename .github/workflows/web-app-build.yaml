@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "FLASK_ENV=production" >> .env
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-          echo "MONGO_URI=${MONGO_URI:-mongodb://mongodb:27017/genghis-pond}" >> .env
+          echo "MONGO_URI=mongodb://localhost:27017/genghis-pond-test" >> .env
 
       - name: Install Python
         uses: actions/setup-python@v5
