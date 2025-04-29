@@ -1,9 +1,11 @@
+[![Genghis Pond CI/CD](https://github.com/software-students-spring2025/5-final-genghis-pond/actions/workflows/web-app-build.yaml/badge.svg)](https://github.com/software-students-spring2025/5-final-genghis-pond/actions/workflows/web-app-build.yaml)
+
 # Final Project - Genghis Pond
 
 ## Project Description
 
 Welcome To Genghis Pond! A web app in which you can share and upload pictues of animals you encounter. The website uses machine learning to idenitify the animal in the photo. Others can also vote on what they believe the identification of the animal is! Then you can share the location of the encounter!
-Don't worry, if your species is identified as being endangered it will not be shown on the website for the protection of the animal.
+Don't worry, if your species is identified as being critically endangered it will not be shown on the website for the protection of the animal.
 
 
 ## Contributors
