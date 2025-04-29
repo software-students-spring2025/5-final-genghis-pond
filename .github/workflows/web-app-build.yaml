@@ -53,14 +53,13 @@ jobs:
           envs: SECRET_KEY,DOCKER_USERNAME,DOCKER_PASSWORD
           script: |
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-            docker pull ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
+            docker pull ${DOCKER_USERNAME}/genghis-pond:latest
             docker stop web_app || true
             docker rm web_app || true
             docker run -d --name web_app \
               --restart unless-stopped \
-              --network genghis-network \
-              -p 5002:5002 \
+              --network host \
               -e FLASK_ENV=production \
               -e SECRET_KEY=${SECRET_KEY} \
-              -e MONGO_URI=mongodb://mongodb:27017/genghis-pond \
-              ${{ secrets.DOCKER_USERNAME }}/genghis-pond:latest
+              -e MONGO_URI=mongodb://localhost:27017/genghis-pond \
+              ${DOCKER_USERNAME}/genghis-pond:latest
