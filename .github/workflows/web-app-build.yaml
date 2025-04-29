@@ -52,14 +52,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           envs: SECRET_KEY,DOCKER_USERNAME,DOCKER_PASSWORD
           script: |
-            echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-            docker pull ${DOCKER_USERNAME}/genghis-pond:latest
-            docker stop web_app || true
-            docker rm web_app || true
-            docker run -d --name web_app \
-              --restart unless-stopped \
-              --network host \
-              -e FLASK_ENV=production \
-              -e SECRET_KEY=${SECRET_KEY} \
-              -e MONGO_URI=mongodb://localhost:27017/genghis-pond \
-              ${DOCKER_USERNAME}/genghis-pond:latest
+            docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+            cd 5-final-genghis-pond
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
